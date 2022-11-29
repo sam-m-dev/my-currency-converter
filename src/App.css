@@ -23,6 +23,7 @@ section {
   width: 90%;
   flex-direction: column;
   border: 2px solid black;
+  max-width:800px;
 }
 
 
