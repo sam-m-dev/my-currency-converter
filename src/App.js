@@ -66,19 +66,19 @@ function CurrenciesList() {
 
 
   const valueSelected1 = (e) => {
-    console.log(e.target.value);
+   // console.log(e.target.value);
     setCurrencyValue1(e.target.value);
-    // alert(e.target.value);
+   
   };
 
   const valueSelected2 = (e) => {
-    console.log(e.target.value);
+   // console.log(e.target.value);
     setCurrencyValue2(e.target.value);
-    //  alert(e.target.value);
+
   };
 
   const setAmount = (e) => {
-    console.log(e.target.value);
+  //  console.log(e.target.value);
     setAmountToConvert(e.target.value);
 
   }
@@ -87,10 +87,10 @@ function CurrenciesList() {
 
     const API_KEY = '62e007a045241fd8f591e565';
     let convResult;
-    console.log(isNaN(amountInput));
+  
     if (isNaN(amountInput) === false) {
 
-     
+
 
       fetch(`https://v6.exchangerate-api.com/v6/${API_KEY}/pair/${currency1}/${currency2}/${amountInput}`, {
         method: "GET",
@@ -108,61 +108,59 @@ function CurrenciesList() {
 
         )
 
-      }else{
-        alert("The amount must be a number");
-      }
-    // if (parseFloat(amountInput))
-
+    } else {
+      alert("The amount must be a number");
+    }
 
     return convResult
   }
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    
-   
+
     conversion(currencyValue1, currencyValue2, amountToConvert)
-    
+
   }
 
-
-  console.log(currencyValue1 + "," + currencyValue2 + "," + amountToConvert);
+ // console.log(currencyValue1 + "," + currencyValue2 + "," + amountToConvert);
 
   return (
     <section>
       <div className='form-wrapper'>
         <form onSubmit={handleSubmit}>
 
-        <div className="dropdowns">
-          <label>
-            Pick a Currency:
-            <select name="currencyPick1" onChange={valueSelected1}>
-              {currencyArray.map((code) => <CurrencyCodes key={code} currCode={code} />)}
-            </select>
-          </label> 
+          <div className="dropdowns">
+            <label>
+              Pick a Currency:
+              <select name="currencyPick1" onChange={valueSelected1}>
+                {currencyArray.map((code) => <CurrencyCodes key={code} currCode={code} />)}
+              </select>
+            </label>
 
-          <label>
-            Pick a Currency:
-            <select name="currencyPick2" onChange={valueSelected2}>
-              {currencyArray.map((code) => <CurrencyCodes key={code} currCode={code} />)}
-            </select>
-          </label>
-        </div>
- <div className='amount'>
-          <label >
-            Amount:
-            <input value={amountToConvert}
-              type="text" name="amount" onChange={setAmount} />
-          </label>
+            <label>
+              Pick a Currency:
+              <select name="currencyPick2" onChange={valueSelected2}>
+                {currencyArray.map((code) => <CurrencyCodes key={code} currCode={code} />)}
+              </select>
+            </label>
+          </div>
+          <div className='amount'>
+            <label >
+              Amount:
+              <input value={amountToConvert}
+                type="text" name="amount" onChange={setAmount} />
+            </label>
           </div>
           <div className="button-wrapper">
-          <button>submit</button>
+            <button>submit</button>
           </div>
         </form>
       </div>
-      <div className='result'>{resultConversion}</div>
+      <div className='result'>
+        <h2>{resultConversion} {currencyValue2}</h2>
+        </div>
 
-    </section> 
+    </section>
   );
 }
 

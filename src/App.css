@@ -10,10 +10,19 @@ div {
   align-items: center
 }
 
+.form-wrapper {
+  width: 90%;
+  padding: 5%;
+  margin: auto;
+  box-sizing: border-box;
+}
+
 section {
   display: flex;
-  width: 100%;
+  height: auto;
+  width: 90%;
   flex-direction: column;
+  border: 2px solid black;
 }
 
 
@@ -25,6 +34,16 @@ section {
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: black;
+}
+
+.App-header p {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 2em;
+}
+
+.button-wrapper {
+  padding: 3% 0;
+  margin: 2% 0;
 }
 
 .dropdowns,
@@ -39,21 +58,29 @@ button {
   width: 50%;
   justify-content: center;
   display: flex;
+
 }
 
 label {
   display: flex;
   flex-direction: column;
-  width: 80%;
-  align-items: center;
+  width: 100%;
+  align-items: flex-start;
   margin: 3%;
   padding: 2%;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1em;
 }
 
 select,
 input {
   display: flex;
-  width: 80%;
+  width: 100%;
+  border: 1px solid black;
+  padding: 2% 0;
+  margin: 3% 0;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1em;
 }
 
 form {
