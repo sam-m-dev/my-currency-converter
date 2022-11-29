@@ -2,6 +2,20 @@
   text-align: center;
 }
 
+div {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center
+}
+
+section {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
+
 
 .App-header {
   min-height: 10vh;
@@ -13,8 +27,38 @@
   color: black;
 }
 
-.App-link {
-
+.dropdowns,
+.button-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
 }
 
+button {
+  width: 50%;
+  justify-content: center;
+  display: flex;
+}
 
+label {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  align-items: center;
+  margin: 3%;
+  padding: 2%;
+}
+
+select,
+input {
+  display: flex;
+  width: 80%;
+}
+
+form {
+  display: flex;
+  width: 90%;
+  flex-direction: column;
+
+}

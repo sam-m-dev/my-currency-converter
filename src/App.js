@@ -10,15 +10,12 @@ let currencyArray = new Array();
 function CurrenciesList() {
 
   const [allCurrencies, setAllCurrencies] = useState([]);
-
   const [currencyValue1, setCurrencyValue1] = useState("");
   const [currencyValue2, setCurrencyValue2] = useState("");
   const [amountToConvert, setAmountToConvert] = useState("");
-
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
-
-  const [resultConversion,setResultConversion] = useState("");
+  const [resultConversion, setResultConversion] = useState("");
 
 
 
@@ -29,36 +26,36 @@ function CurrenciesList() {
         (result) => {
           setIsLoading(false);
           setAllCurrencies(result);
-         
-     
+
+
         },
         (error) => {
-          setIsLoading(false); 
+          setIsLoading(false);
           setErrorMessage(error);
         }
-   
+
       )
-   
-  }, []); 
+
+  }, []);
 
 
-  for(let i=0; i< allCurrencies.length; i++){
+  for (let i = 0; i < allCurrencies.length; i++) {
 
     let currency = allCurrencies[i];
-    currencyInfo= currency.currencies;
+    currencyInfo = currency.currencies;
 
 
     // some results seem to come up as undefined 
     // so we are going to ignore them for now
     // and use the currencies we have
 
-    if (currencyInfo !== undefined){
-    
+    if (currencyInfo !== undefined) {
+
       //some countries have more than one currency
-      if (currencyInfo.length <= 1 ){
+      if (currencyInfo.length <= 1) {
         addToArray(currencyInfo[0]['code']);
-  
-      } else if (currencyInfo.length === 2){
+
+      } else if (currencyInfo.length === 2) {
         addToArray(currencyInfo[0]['code']);
         addToArray(currencyInfo[1]['code']);
       }
@@ -69,18 +66,18 @@ function CurrenciesList() {
 
 
   const valueSelected1 = (e) => {
-   console.log(e.target.value);
+    console.log(e.target.value);
     setCurrencyValue1(e.target.value);
-   // alert(e.target.value);
+    // alert(e.target.value);
   };
 
   const valueSelected2 = (e) => {
     console.log(e.target.value);
     setCurrencyValue2(e.target.value);
-  //  alert(e.target.value);
+    //  alert(e.target.value);
   };
 
-  const setAmount= (e) => {
+  const setAmount = (e) => {
     console.log(e.target.value);
     setAmountToConvert(e.target.value);
 
@@ -90,61 +87,82 @@ function CurrenciesList() {
 
     const API_KEY = '62e007a045241fd8f591e565';
     let convResult;
+    console.log(isNaN(amountInput));
+    if (isNaN(amountInput) === false) {
 
-    fetch(`https://v6.exchangerate-api.com/v6/${API_KEY}/pair/${currency1}/${currency2}/${amountInput}`, {
-      method: "GET",
-    })
-      .then(data => data.json())
-      .then(
-        (result) => {
-          console.log(result.conversion_result)
-          convResult = result.conversion_result;
-          setResultConversion(result.conversion_result);
-        },
-        (error) => {
+     
 
-        }
+      fetch(`https://v6.exchangerate-api.com/v6/${API_KEY}/pair/${currency1}/${currency2}/${amountInput}`, {
+        method: "GET",
+      })
+        .then(data => data.json())
+        .then(
+          (result) => {
+            console.log(result.conversion_result)
+            convResult = result.conversion_result;
+            setResultConversion(result.conversion_result);
+          },
+          (error) => {
 
-      )
+          }
+
+        )
+
+      }else{
+        alert("The amount must be a number");
+      }
+    // if (parseFloat(amountInput))
+
 
     return convResult
   }
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-  
+    
+   
     conversion(currencyValue1, currencyValue2, amountToConvert)
     
-       
   }
 
 
+  console.log(currencyValue1 + "," + currencyValue2 + "," + amountToConvert);
 
-  console.log(currencyValue1+","+ currencyValue2+","+ amountToConvert);
-  
   return (
     <section>
-    <div>
-      <form onSubmit={handleSubmit}>
-        
-        <select name="currencyPick1" onChange={valueSelected1}>
-          {currencyArray.map((code) => <CurrencyCodes key={code} currCode={code} />)}
-        </select> 
-        <select name="currencyPick2" onChange={valueSelected2}>
-          {currencyArray.map((code) => <CurrencyCodes key={code} currCode={code} />)}
-        </select>
+      <div className='form-wrapper'>
+        <form onSubmit={handleSubmit}>
 
-        <label>
-          Amount:
-          <input value={amountToConvert}
-            type="text" name="amount" onChange={ setAmount} />
-        </label>
-        <button>submit</button>
-      </form>
-    </div>
-    <div>{resultConversion}</div>
+        <div className="dropdowns">
+          <label>
+            Pick a Currency:
+            <select name="currencyPick1" onChange={valueSelected1}>
+              {currencyArray.map((code) => <CurrencyCodes key={code} currCode={code} />)}
+            </select>
+          </label> 
 
-    </section>
+          <label>
+            Pick a Currency:
+            <select name="currencyPick2" onChange={valueSelected2}>
+              {currencyArray.map((code) => <CurrencyCodes key={code} currCode={code} />)}
+            </select>
+          </label>
+        </div>
+ <div className='amount'>
+          <label >
+            Amount:
+            <input value={amountToConvert}
+              type="text" name="amount" onChange={setAmount} />
+          </label>
+          </div>
+          <div className="button-wrapper">
+          <button>submit</button>
+          </div>
+        </form>
+      </div>
+      <div className='result'>{resultConversion}</div>
+
+    </section> 
   );
 }
 
@@ -156,7 +174,7 @@ function addToArray(currencyToAdd) {
     currencyArray.push(currencyToAdd);
   }
 
-} 
+}
 
 
 function CurrencyCodes(props) {
@@ -174,13 +192,11 @@ function App() {
           Currency Conversion App
         </p>
       </header>
-      
-      <CurrenciesList>
-        
-      </CurrenciesList>
-     
-    </div> 
-  ); 
+
+      <CurrenciesList> </CurrenciesList>
+
+    </div>
+  );
 }
 
 export default App;
