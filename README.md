@@ -15,3 +15,4 @@ In the project directory, you can run:
  The current code has a missing error handling for the dropdown menu, which could lead to a failure of the api call
 
 
+# currency-conversion-clone
