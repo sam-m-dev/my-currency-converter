@@ -206,6 +206,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
   const [resultConversion, setResultConversion] = useState("");
+  const [isConversionDone,setIsConversionDone]= useState(false);
 
   const valueSelected1 = (e) => {
     console.log(e.target.value);
@@ -232,6 +233,7 @@ function App() {
         (result) => {
           setIsLoading(false);
           setAllCurrencies(result);
+
 
 
         },
@@ -263,6 +265,7 @@ function App() {
             console.log(result.conversion_result)
             convResult = result.conversion_result;
             setResultConversion(result.conversion_result);
+            setIsConversionDone(true);
           },
           (error) => {
 
@@ -283,7 +286,7 @@ function App() {
     conversion(currencyValue1, currencyValue2, amountToConvert)
 
   }
-
+  console.log("test" + amountToConvert)
   return (
     <div className="App">
       <header className="App-header">
@@ -291,15 +294,52 @@ function App() {
           Currency Conversion App
         </p>
       </header>
-      <ConversionForm currenciesAll={allCurrencies} currencyInput1={valueSelected1} currencyInput2={valueSelected2} amountInput={amountToConvert} amountSet={setAmount} conversionResult={resultConversion} setConversionResult={setResultConversion} submitConversion={handleSubmit}>
-
+      <ConversionForm 
+      currenciesAll={allCurrencies} 
+      currencyInput1={valueSelected1} 
+      currencyInput2={valueSelected2} 
+      amountInput={amountToConvert} 
+      amountSet={setAmount} 
+      conversionResult={resultConversion} 
+      setConversionResult={setResultConversion} 
+      submitConversion={handleSubmit}>
       </ConversionForm>
-      <Result convResult={resultConversion} convertedTo={currencyValue2}></Result>
-
+      {/* <Result amountConverted={amountToConvert} convResult={resultConversion} convertedFrom={currencyValue1} convertedTo={currencyValue2}></Result> */}
+      <DisplayConversion isConverted={isConversionDone} amountConverted={amountToConvert} convResult={resultConversion} convertedFrom={currencyValue1} convertedTo={currencyValue2}></DisplayConversion> 
     </div>
   );
 }
 
+
+
+
+function addToArray(currencyToAdd) {
+  // to avoid duplicates we want to check if the currency has already been added
+  // if the currency 
+  // is not already in the list we want to add it 
+  if (currencyArray.includes(currencyToAdd) === false) {
+    currencyArray.push(currencyToAdd);
+  }
+
+}
+
+function ConversionForm({ amountInput, amountSet, currenciesAll, currencyInput2, currencyInput1, conversionResult, setConversionResult, submitConversion }) {
+
+  return (
+    <div>
+      <section>
+        <div className='form-wrapper'>
+          <form>
+            <DropdownButtons currenciesList={currenciesAll} selection1={currencyInput1} selection2={currencyInput2}></DropdownButtons>
+            <AmountToConvert amount={amountInput} setAmount={amountSet}></AmountToConvert>
+            <SubmitBtn handleSubmit={submitConversion}></SubmitBtn>
+          </form>
+        </div>
+      </section>
+    </div>
+
+  )
+}
 
 function DropdownButtons({ currenciesList, selection1, selection2 }) {
 
@@ -339,36 +379,6 @@ function DropdownButtons({ currenciesList, selection1, selection2 }) {
   )
 }
 
-
-
-function addToArray(currencyToAdd) {
-  // to avoid duplicates we want to check if the currency has already been added
-  // if the currency 
-  // is not already in the list we want to add it 
-  if (currencyArray.includes(currencyToAdd) === false) {
-    currencyArray.push(currencyToAdd);
-  }
-
-}
-
-function ConversionForm({ amountInput, amountSet, currenciesAll, currencyInput2, currencyInput1, conversionResult, setConversionResult, submitConversion }) {
-
-  return (
-    <div>
-      <section>
-        <div className='form-wrapper'>
-          <form>
-            <DropdownButtons currenciesList={currenciesAll} selection1={currencyInput1} selection2={currencyInput2}></DropdownButtons>
-            <AmountToConvert amount={amountInput} setAmount={amountSet}></AmountToConvert>
-            <SubmitBtn handleSubmit={submitConversion}></SubmitBtn>
-          </form>
-        </div>
-      </section>
-    </div>
-
-  )
-}
-
 function AmountToConvert({ setAmount, amount }) {
   return (
     <div className='amount'>
@@ -389,13 +399,23 @@ function SubmitBtn({ handleSubmit }) {
 }
 
 
-
-function Result({ convResult, convertedTo }) {
+function Result({amountConverted, convResult, convertedTo, convertedFrom }) {
+  console.log("test"+amountConverted)
   return (
-    <div className='result'>
-      <h2>{convResult} {convertedTo}</h2>
-    </div>
+    <p>{amountConverted}{convertedFrom} is {convResult} {convertedTo} </p>
   )
+}
+
+function DisplayConversion({isConverted, amountConverted, convResult, convertedTo, convertedFrom }){
+ // const isConverted =props.isConverted;
+  console.log("test" + amountConverted)
+ if(isConverted){
+  return <Result amountConverted={amountConverted} convResult={convResult} convertedFrom={convertedFrom} convertedTo={convertedTo}></Result>
+ }
+
+ return(
+  <h1>Oops an error occured, please try again</h1>
+ )
 }
 
 
