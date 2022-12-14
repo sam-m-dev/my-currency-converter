@@ -5,10 +5,175 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  
+
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.content-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.form-wrapper,
+.conversion-wrapper,
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center
+}
+
+.result {
+  display: flex;
+  justify-content: center;
+}
+
+.form-wrapper {
+  width: 90%;
+  padding: 5%;
+  margin: auto;
+  box-sizing: border-box;
+}
+
+.conversion-wrapper {
+
+  justify-content: space-evenly;
+}
+
+.converter-section {
+  display: flex;
+  min-height: 70vh;
+  width: 90%;
+  flex-direction: column;
+  border: 2px solid black;
+  border-radius: 20px;
+  max-width: 800px;
+}
+
+.result-section {
+  height: auto;
+}
+
+
+.App-header {
+  height: 10vh;
+  margin: auto;
+  padding: 2%;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+
+}
+
+.App-header p {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 2em;
+}
+
+.button-wrapper {
+  padding: 3% 0;
+  margin: 2% 0;
+}
+
+.dropdowns,
+.button-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+}
+
+button {
+  width: 50%;
+  justify-content: center;
+  display: flex;
+
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: flex-start;
+  /* margin: 3%;
+  padding: 2%; */
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1em;
+}
+
+/* select, */
+input {
+  display: flex;
+  width: 100%;
+  border: 1px solid black;
+  padding: 2% 0;
+  margin: 3% 0;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1em;
+}
+
+form {
+  display: flex;
+  width: 90%;
+  flex-direction: column;
+
+}
+
+.form-select {
+
+  outline: 0;
+  background: green;
+  background-image: none;
+  border: 1px solid black;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0 0 0 .5em;
+  color: #fff;
+  cursor: pointer;
+}
+
+.select {
+  position: relative;
+  display: block;
+  width: 20em;
+  height: 3em;
+  line-height: 3;
+  background: #2C3E50;
+  overflow: hidden;
+  border-radius: .25em;
+}
+
+select {}
+
+.form-select::-ms-expand {
+  display: none;
+}
+
+option {
+  background-color: yellow;
+}
+
+option:checked {
+  background-color: green;
+}
+
+.select::after {
+  content: '\25BC';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0 1em;
+  background: #34495E;
+  pointer-events: none;
+}
+
+.select:hover::after {
+  color: #F39C12;
 }

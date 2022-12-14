@@ -1,391 +1,340 @@
-import './App.css';
-import { useEffect, useState } from 'react';
-
-let currencyInfo;
-let currencyArray = new Array();
-
-// //functional component to generate currency list
-// function CurrenciesList() {
-
-//   const [allCurrencies, setAllCurrencies] = useState([]);
-//   const [currencyValue1, setCurrencyValue1] = useState("");
-//   const [currencyValue2, setCurrencyValue2] = useState("");
-//   const [amountToConvert, setAmountToConvert] = useState("");
-//   const [isLoading, setIsLoading] = useState(true);
-//   const [errorMessage, setErrorMessage] = useState(null);
-//   const [resultConversion, setResultConversion] = useState("");
+import './App.css'
+import { useEffect, useState } from 'react'
 
 
-
-//   useEffect(() => {
-//     fetch('https://restcountries.com/v2/all?fields=currencies')
-//       .then(res => res.json())
-//       .then(
-//         (result) => {
-//           setIsLoading(false);
-//           setAllCurrencies(result);
-
-
-//         },
-//         (error) => {
-//           setIsLoading(false);
-//           setErrorMessage(error);
-//         }
-
-//       )
-
-//   }, []);
-
-
-//   for (let i = 0; i < allCurrencies.length; i++) {
-
-//     let currency = allCurrencies[i];
-//     currencyInfo = currency.currencies;
-
-
-//     // some results seem to come up as undefined 
-//     // so we are going to ignore them for now
-//     // and use the currencies we have
-
-//     if (currencyInfo !== undefined) {
-
-//       //some countries have more than one currency
-//       if (currencyInfo.length <= 1) {
-//         addToArray(currencyInfo[0]['code']);
-
-//       } else if (currencyInfo.length === 2) {
-//         addToArray(currencyInfo[0]['code']);
-//         addToArray(currencyInfo[1]['code']);
-//       }
-//     }
-
-//   }
-
-
-
-//   const valueSelected1 = (e) => {
-//    // console.log(e.target.value);
-//     setCurrencyValue1(e.target.value);
-
-//   };
-
-//   const valueSelected2 = (e) => {
-//    // console.log(e.target.value);
-//     setCurrencyValue2(e.target.value);
-
-//   };
-
-//   const setAmount = (e) => {
-//   //  console.log(e.target.value);
-//     setAmountToConvert(e.target.value);
-
-//   }
-
-//   function conversion(currency1, currency2, amountInput) {
-
-//     const API_KEY = '62e007a045241fd8f591e565';
-//     let convResult;
-
-//     if (isNaN(amountInput) === false) {
-
-
-
-//       fetch(`https://v6.exchangerate-api.com/v6/${API_KEY}/pair/${currency1}/${currency2}/${amountInput}`, {
-//         method: "GET",
-//       })
-//         .then(data => data.json())
-//         .then(
-//           (result) => {
-//             console.log(result.conversion_result)
-//             convResult = result.conversion_result;
-//             setResultConversion(result.conversion_result);
-//           },
-//           (error) => {
-
-//           }
-
-//         )
-
-//     } else {
-//       alert("The amount must be a number");
-//     }
-
-//     return convResult
-//   }
-
-//   const handleSubmit = (evt) => {
-//     evt.preventDefault();
-
-//     conversion(currencyValue1, currencyValue2, amountToConvert)
-
-//   }
-
-//  // console.log(currencyValue1 + "," + currencyValue2 + "," + amountToConvert);
-
-//   return (
-//     <section>
-//       <div className='form-wrapper'>
-//         <form onSubmit={handleSubmit}>
-
-//           <div className="dropdowns">
-//             <label>
-//               Pick a Currency:
-//               <select name="currencyPick1" onChange={valueSelected1}>
-//                 {currencyArray.map((code) => <CurrencyCodes key={code} currCode={code} />)}
-//               </select>
-//             </label>
-
-//             <label>
-//               Pick a Currency:
-//               <select name="currencyPick2" onChange={valueSelected2}>
-//                 {currencyArray.map((code) => <CurrencyCodes key={code} currCode={code} />)}
-//               </select>
-//             </label>
-//           </div>
-//           <div className='amount'>
-//             <label >
-//               Amount:
-//               <input value={amountToConvert}
-//                 type="text" name="amount" onChange={setAmount} />
-//             </label>
-//           </div>
-//           <div className="button-wrapper">
-//             <button>submit</button>
-//           </div>
-//         </form>
-//       </div>
-//       <div className='result'>
-//         <h2>{resultConversion} {currencyValue2}</h2>
-//         </div>
-
-//     </section>
-//   );
-// }
-
-
-
-
-// function CurrencyCodes(props) {
-//   return <option key={props.currCode} value={props.currCode} >{props.currCode}</option>
-// }
-
-
-// function App() {
-//   console.log(CurrenciesList.currencyValue1 + "," + CurrenciesList.currencyValue2 + "," + CurrenciesList.amountToConvert);
-
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <p>
-//           Currency Conversion App
-//         </p>
-//       </header>
-
-//       <CurrenciesList> </CurrenciesList>
-
-//     </div>
-//   );
-// }
-
-// export default App;
-
-
-////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////test////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////
-
-
+let currencyInfo
+let currencyArray = new Array()
+let loading;
 function App() {
 
-  const [allCurrencies, setAllCurrencies] = useState([]);
-  const [currencyValue1, setCurrencyValue1] = useState("");
-  const [currencyValue2, setCurrencyValue2] = useState("");
-  const [amountToConvert, setAmountToConvert] = useState(0);
-  const [isLoading, setIsLoading] = useState(true);
-  const [errorMessage, setErrorMessage] = useState(null);
-  const [resultConversion, setResultConversion] = useState("");
-  const [isConversionDone,setIsConversionDone]= useState(false);
+
+
+  const [allCurrencies, setAllCurrencies] = useState([])
+  const [currencyValue1, setCurrencyValue1] = useState('')
+  const [currencyValue2, setCurrencyValue2] = useState('')
+  const [amountToConvert, setAmountToConvert] = useState(0)
+ const [isLoading, setIsLoading] = useState(true)
+  const [isConversionLoading, setConversionIsLoading] = useState(false)
+  const [errorMessage, setErrorMessage] = useState(null)
+  const [resultConversion, setResultConversion] = useState('')
+  const [isConversionDone, setIsConversionDone] = useState(false)
+
+  const alertAmountContainer = document.getElementById('alertMessageAmount')
+  const currencyErrorMessage = 'Please enter a currency'
+  const amountErrorMessage = 'Please enter a valid amount'
+  const alertType = 'danger'
+  const currencyFromId = 'alertOriginCurrency'
+  const currencyToId = 'alertDestinationCurrency'
+  const amountId = 'alertMessageAmount'
 
   const valueSelected1 = (e) => {
-    console.log(e.target.value);
-    setCurrencyValue1(e.target.value);
-
-  };
+    // console.log(e.target.value);
+    setCurrencyValue1(e.target.value)
+    clearErrors(currencyFromId)
+  }
 
   const valueSelected2 = (e) => {
-    console.log(e.target.value);
-    setCurrencyValue2(e.target.value);
-
-  };
+    console.log(e.target.value)
+    setCurrencyValue2(e.target.value) 
+    clearErrors(currencyToId)
+  }
 
   const setAmount = (e) => {
-    console.log(e.target.value);
-    setAmountToConvert(e.target.value);
+    // console.log(isNaN(e.target.value));
+    if (isNaN(e.target.value)) {
+      alertMessageAmount(amountErrorMessage, alertType)
+    } else {
+      setAmountToConvert(e.target.value)
+      clearErrors(amountId)
+    }
+  }
 
+  const alertMessageAmount = (message, type) => {
+    const wrapper = document.createElement('div')
+    wrapper.innerHTML = [
+      `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+      `   <div>${message}</div>`,
+      '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+      '</div>',
+    ].join('')
+
+    // console.log(alertAmountContainer.hasChildNodes());
+    // When error message is generated the conatiner will have child nodes
+    // So, if message is already displayed don't display it again
+    if (alertAmountContainer.hasChildNodes() === false) {
+      alertAmountContainer.append(wrapper)
+    }
+  }
+
+  const alertMessageCurrency = (message, type, currencyMissing) => {
+    const currencyError = document.getElementById(currencyMissing)
+    const wrapper = document.createElement('div')
+    wrapper.innerHTML = [
+      `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+      `   <div>${message}</div>`,
+      '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+      '</div>',
+    ].join('')
+
+    //if message already displayed dont display it again
+    if (currencyError.hasChildNodes() === false) {
+      currencyError.append(wrapper)
+    }
   }
 
   useEffect(() => {
     fetch('https://restcountries.com/v2/all?fields=currencies')
-      .then(res => res.json())
+      .then((res) => res.json())
       .then(
         (result) => {
-          setIsLoading(false);
-          setAllCurrencies(result);
-
-
-
+          setIsLoading(false)
+          setAllCurrencies(result)
         },
         (error) => {
-          setIsLoading(false);
-          setErrorMessage(error);
-        }
-
+          setIsLoading(false)
+          setErrorMessage(error)
+        },
       )
-
-  }, []);
-
+  }, [])
 
   function conversion(currency1, currency2, amountInput) {
-
     const API_KEY = '62e007a045241fd8f591e565';
     let convResult;
-
+  
+    
+    setConversionIsLoading(true);
+  
     if (isNaN(amountInput) === false) {
-
-
-
-      fetch(`https://v6.exchangerate-api.com/v6/${API_KEY}/pair/${currency1}/${currency2}/${amountInput}`, {
-        method: "GET",
-      })
-        .then(data => data.json())
+    
+      loading = true;
+      console.log("before fetch conversion loading?" + loading)
+      fetch(
+        `https://v6.exchangerate-api.com/v6/${API_KEY}/pair/${currency1}/${currency2}/${amountInput}`,
+        {
+          method: 'GET',
+        },
+      )
+        .then((data) => data.json())
         .then(
           (result) => {
             console.log(result.conversion_result)
-            convResult = result.conversion_result;
-            setResultConversion(result.conversion_result);
+            convResult = result.conversion_result
+            setResultConversion(result.conversion_result)
             setIsConversionDone(true);
+            setConversionIsLoading(false);
+            loading=false;
+            // setConversionIsLoading(false);
+            console.log("loading"+loading)
+            // setIsConversionDone(true)
+           // console.log("conversion done?" + isConversionDone)
           },
-          (error) => {
-
-          }
-
+          (error) => {},
         )
-
     } else {
-      alert("The amount must be a number");
+      alert('The amount must be a number')
     }
 
     return convResult
   }
 
-  const handleSubmit = (evt) => {
-    evt.preventDefault();
+  //Clear error messages
+  function clearErrors(errorId) {
+    const errorContainer = document.getElementById(errorId)
+    //console.log(errorContainer);
 
-    conversion(currencyValue1, currencyValue2, amountToConvert)
-
+    if (errorContainer.hasChildNodes()) {
+      errorContainer.replaceChildren()
+    }
   }
-  console.log("test" + amountToConvert)
+
+  function handleSubmit(event) {
+    event.preventDefault()
+    // console.log(currencyValue1);
+
+    if (currencyValue1 === '' && currencyValue2 === '') {
+      alertMessageCurrency(currencyErrorMessage, alertType, currencyFromId)
+      alertMessageCurrency(currencyErrorMessage, alertType, currencyToId)
+    } else if (currencyValue1 === '') {
+      alertMessageCurrency(currencyErrorMessage, alertType, currencyFromId)
+    } else if (currencyValue2 === '') {
+      alert('please enter destination currency' + amountToConvert)
+      alertMessageCurrency(currencyErrorMessage, alertType, currencyToId)
+    }
+
+    if (
+      amountToConvert === '' ||
+      amountToConvert === undefined ||
+      amountToConvert <= 0
+    ) {
+      alertMessageAmount(amountErrorMessage, alertType)
+    } else {
+      conversion(currencyValue1, currencyValue2, amountToConvert,isConversionLoading)
+    }
+
+    //console.log("test" + amountToConvert)
+  }
   return (
     <div className="App">
+      <div className="content-wrapper">
       <header className="App-header">
-        <p>
-          Currency Conversion App
-        </p>
+        <h1>Currency Converter</h1>
       </header>
-      <ConversionForm 
-      currenciesAll={allCurrencies} 
-      currencyInput1={valueSelected1} 
-      currencyInput2={valueSelected2} 
-      amountInput={amountToConvert} 
-      amountSet={setAmount} 
-      conversionResult={resultConversion} 
-      setConversionResult={setResultConversion} 
-      submitConversion={handleSubmit}>
-      </ConversionForm>
-      {/* <Result amountConverted={amountToConvert} convResult={resultConversion} convertedFrom={currencyValue1} convertedTo={currencyValue2}></Result> */}
-      <DisplayConversion isConverted={isConversionDone} amountConverted={amountToConvert} convResult={resultConversion} convertedFrom={currencyValue1} convertedTo={currencyValue2}></DisplayConversion> 
+      <div className="conversion-wrapper">
+        <ConversionForm
+          currenciesAll={allCurrencies}
+          currencyInput1={valueSelected1}
+          currencyInput2={valueSelected2}
+          amountInput={amountToConvert}
+          amountSet={setAmount}
+          conversionResult={resultConversion}
+          setConversionResult={setResultConversion}
+          submitConversion={handleSubmit}
+        ></ConversionForm>
+        <DisplayConversion
+          isConverted={isConversionDone}
+          loadingStatus={isConversionLoading}
+          amountConverted={amountToConvert}
+          convResult={resultConversion}
+          convertedFrom={currencyValue1}
+          convertedTo={currencyValue2}
+        ></DisplayConversion>
+      </div>
+        <footer className="App-footer">
+          <p>Made with React</p>
+        </footer>
+      </div>
     </div>
-  );
+  )
 }
 
+function addToArray(currencyToAddObject) {
 
 
+  if (currencyArray.some(currency => currency.codeCurrency === currencyToAddObject.codeCurrency)) {
 
-function addToArray(currencyToAdd) {
-  // to avoid duplicates we want to check if the currency has already been added
-  // if the currency 
-  // is not already in the list we want to add it 
-  if (currencyArray.includes(currencyToAdd) === false) {
-    currencyArray.push(currencyToAdd);
+  }else{
+      currencyArray.push(currencyToAddObject);
   }
 
 }
 
-function ConversionForm({ amountInput, amountSet, currenciesAll, currencyInput2, currencyInput1, conversionResult, setConversionResult, submitConversion }) {
 
+function ConversionForm({
+  amountInput,
+  amountSet,
+  currenciesAll,
+  currencyInput2,
+  currencyInput1,
+  conversionResult,
+  setConversionResult,
+  submitConversion,
+}) {
   return (
-    <div>
-      <section>
-        <div className='form-wrapper'>
-          <form>
-            <DropdownButtons currenciesList={currenciesAll} selection1={currencyInput1} selection2={currencyInput2}></DropdownButtons>
-            <AmountToConvert amount={amountInput} setAmount={amountSet}></AmountToConvert>
-            <SubmitBtn handleSubmit={submitConversion}></SubmitBtn>
-          </form>
-        </div>
-      </section>
-    </div>
-
+    <section className="converter-section">
+      <div className="form-wrapper">
+        <form className="needs-validation">
+          <DropdownButtons
+            currenciesList={currenciesAll}
+            selection1={currencyInput1}
+            selection2={currencyInput2}
+          ></DropdownButtons>
+          <AmountToConvert
+            amount={amountInput}
+            setAmount={amountSet}
+          ></AmountToConvert>
+          <SubmitBtn handleSubmit={submitConversion}></SubmitBtn>
+        </form>
+      </div>
+    </section>
   )
 }
 
 function DropdownButtons({ currenciesList, selection1, selection2 }) {
-
-
+ //console.log(currenciesList);
   for (let i = 0; i < currenciesList.length; i++) {
-
-    let currencyItem = currenciesList[i];
-    let currencyInfo = currencyItem.currencies;
+    let currencyItem = currenciesList[i]
+    let currencyInfo = currencyItem.currencies
+  
 
     if (currencyInfo !== undefined) {
-
+      let currencyObject = {
+        codeCurrency: currencyInfo[0]['code'],
+        name: currencyInfo[0]['name']
+      }
       //some countries have more than one currency
       if (currencyInfo.length <= 1) {
-        addToArray(currencyInfo[0]['code']);
-
+  
+       // addToArray(currencyInfo[0]['code'], currencyInfo[0]['name'])
+        addToArray(currencyObject)
       } else if (currencyInfo.length === 2) {
-        addToArray(currencyInfo[0]['code']);
-        addToArray(currencyInfo[1]['code']);
+       // addToArray(currencyInfo[0]['code'],currencyInfo[0]['name'])
+        addToArray(currencyObject)
+        let currencyObject2 = {
+          codeCurrency: currencyInfo[0]['code'],
+          name: currencyInfo[0]['name']
+        }
+        addToArray(currencyObject2)
+       // addToArray(currencyInfo[1]['code'],currencyInfo[0]['name'])
       }
     }
-
+    
   }
 
-  const currencyItemsList = currencyArray.map((currencyCode) => <option key={currencyCode} value={currencyCode}>{currencyCode}</option>);
+  const currencyItemsList = currencyArray.map((currencyCode) => (
+    <option key={currencyCode.codeCurrency} value={currencyCode.codeCurrency}> 
+    {currencyCode.codeCurrency} - {currencyCode.name}
+    </option>
+  ))
 
   return (
     <div className="dropdowns">
       <label>
         Pick a Currency:
-        <select className="form-select form-select-lg mb-3" id="currency1" aria-label=".form-select-lg example" onChange={selection1}>{currencyItemsList}</select>
       </label>
+      <div className="select">
+        <select
+          className="form-select form-select-lg mb-3"
+          id="currency1"
+          aria-label=".form-select-lg currency"
+          onChange={selection1}
+          required
+        >
+          {currencyItemsList}
+        </select>
+      </div>
+      
+      <div className="errorMessage" id="alertOriginCurrency"></div>
       <label>
         Pick a Currency:
-        <select className="form-select form-select-lg mb-3" id="currency2" aria-label=".form-select-lg example" onChange={selection2}>{currencyItemsList}</select>
+        <select
+          className="slct-currency form-select form-select-lg mb-3"
+          id="currency2"
+          aria-label=".form-select-lg currency"
+          onChange={selection2}
+          required
+        >
+          {currencyItemsList}
+        </select>
       </label>
+      <div className="errorMessage" id="alertDestinationCurrency"></div>
     </div>
   )
 }
 
 function AmountToConvert({ setAmount, amount }) {
   return (
-    <div className='amount'>
-      <label >
+    <div className="amount">
+      <label>
         Amount:
-        <input type="text" name="amount" value={amount} onChange={setAmount} />
+        <input
+          type="text"
+          name="amount"
+          value={amount}
+          onChange={setAmount}
+          required
+        />
       </label>
+      <div className="errorMessage" id="alertMessageAmount"></div>
     </div>
   )
 }
@@ -398,25 +347,86 @@ function SubmitBtn({ handleSubmit }) {
   )
 }
 
-
-function Result({amountConverted, convResult, convertedTo, convertedFrom }) {
-  console.log("test"+amountConverted)
+function Result({ amountConverted, convResult, convertedTo, convertedFrom }) {
+  console.log('test' + amountConverted)
   return (
-    <p>{amountConverted}{convertedFrom} is {convResult} {convertedTo} </p>
+ 
+    <section className='result-section'>
+
+      <div className="result">
+        <h1>result</h1>
+        <p>
+          {amountConverted}
+          {convertedFrom} is {convResult} {convertedTo}{' '}
+        </p>
+      </div>
+    </section>
   )
 }
 
-function DisplayConversion({isConverted, amountConverted, convResult, convertedTo, convertedFrom }){
- // const isConverted =props.isConverted;
-  console.log("test" + amountConverted)
- if(isConverted){
-  return <Result amountConverted={amountConverted} convResult={convResult} convertedFrom={convertedFrom} convertedTo={convertedTo}></Result>
- }
+function LoadingConversion(){
+ 
+    return (
+      <div className="spinner-border" role="status">
+        <span className="visually-hidden">Loading...</span>
+      </div>
+    )
 
- return(
-  <h1>Oops an error occured, please try again</h1>
- )
+
+
 }
 
+function DisplayConversion({
+  isConverted,
+  amountConverted,
+  convResult,
+  convertedTo,
+  convertedFrom,
+  loadingStatus
+}) {
+  // console.log('test' + amountConverted+""+isConverted)
+  // console.log('tlonding' + loading+ "is conv " + isConverted)
+  // if ((loadingStatus === false) && (isConverted === false)) {
+  //   return (
+  //     <LoadingConversion></LoadingConversion> 
+  //   )
+  // }else
+  // <LoadingConversion></LoadingConversion> 
+  console.log(loadingStatus)
+  if ((loadingStatus !== false) && (isConverted === false)){
+    return(
+      <LoadingConversion></LoadingConversion> 
+    )
+    // 
+   
+  } else if((isConverted ===  true) && (loadingStatus === false)){
+    return (
+      <Result
+        amountConverted={amountConverted}
+        convResult={convResult}
+        convertedFrom={convertedFrom}
+        convertedTo={convertedTo}
+      ></Result>
+    )
+  } 
+  
+  // if (loading === true && isConverted === false){
+  //   console.log('test' + amountConverted + "" + isConverted)
+  //   console.log('tlonding' + loading + "is conv " + isConverted)
+  //   alert("yes");
+  //   return(
+  //     <LoadingConversion></LoadingConversion>
+  //   )
+  // } else if (loading === false && isConverted === true) {
+  //   console.log('load' + loading +"is conv ?" + isConverted)
+  //   alert("no");
+  //     <Result
+  //       amountConverted={amountConverted}
+  //       convResult={convResult}
+  //       convertedFrom={convertedFrom}
+  //       convertedTo={convertedTo}
+  //     ></Result>
+  // }
+}
 
-export default App;
+export default App
