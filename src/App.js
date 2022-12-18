@@ -4,8 +4,6 @@ import React from 'react'
 import Select from 'react-select'
 
 
-
-
 let currencyInfo
 let currencyArray = new Array()
 let loading;
@@ -15,8 +13,6 @@ function App() {
 
 
   const [allCurrencies, setAllCurrencies] = useState([])
-  // const [currencyValue1, setCurrencyValue1] = useState('')
- // const [currencyValue2, setCurrencyValue2] = useState('')
   const [amountToConvert, setAmountToConvert] = useState(0)
   const [isLoading, setIsLoading] = useState(true)
   const [isConversionLoading, setConversionIsLoading] = useState(false)
@@ -31,32 +27,31 @@ function App() {
   const currencyFromId = 'alertOriginCurrency'
   const currencyToId = 'alertDestinationCurrency'
   const amountId = 'alertMessageAmount'
+  const messageFromId = 'errorOriginCurrency'
+  const messageToId = 'errorDestinationCurrency'
 
-
-  //const [state, setState]=
   const [currencyValue1, setCurrencyValue1] =useState({
-    selectOptions: [],
-    id: "",
-    name: ''
+    // selectOptions: [],
+    // id: "",
+    // name: ''
   })
+
   const [currencyValue2, setCurrencyValue2] = useState({
-    selectOptions: [],
-    id: "",
-    name: ''
+    // selectOptions: [],
+    // id: "",
+    // name: ''
   })
   
-
   const valueSelected1 = (selectedOption) => {
-    console.log("test" + JSON.stringify(selectedOption));
-    console.log("test" + selectedOption.value);
+    //console.log("valueSelected1: " + selectedOption.value);
     setCurrencyValue1(selectedOption.value);
-
+    clearErrors(currencyFromId);
   }
-  const valueSelected2 = (selectedOption) => {
-    console.log("test" + JSON.stringify(selectedOption));
-    console.log("test" + selectedOption.value);
-    setCurrencyValue2(selectedOption.value);
 
+  const valueSelected2 = (selectedOption) => {
+    // console.log("valueSelected2" + selectedOption.value);
+    setCurrencyValue2(selectedOption.value);
+    clearErrors(currencyToId);
   }
 
   const setAmount = (e) => {
@@ -71,33 +66,39 @@ function App() {
 
   const alertMessageAmount = (message, type) => {
     const wrapper = document.createElement('div')
+    const amountError = document.getElementById('alert-error');
     wrapper.innerHTML = [
       `<div class="alert alert-${type} alert-dismissible" role="alert">`,
-      `   <div>${message}</div>`,
+      `   <div class="message" id="alert-error">${message}</div>`,
       '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
       '</div>',
     ].join('')
 
-    // console.log(alertAmountContainer.hasChildNodes());
+  
     // When error message is generated the conatiner will have child nodes
     // So, if message is already displayed don't display it again
-    if (alertAmountContainer.hasChildNodes() === false) {
+    if (alertAmountContainer.hasChildNodes() === false || amountError ==null) {
       alertAmountContainer.append(wrapper)
     }
   }
 
-  const alertMessageCurrency = (message, type, currencyMissing) => {
+  const alertMessageCurrency = (message, type, currencyMissing, messageId) => {
+  //const alertMessageCurrency = (message, type, currencyMissing, messageAlert) => {
     const currencyError = document.getElementById(currencyMissing)
+    const alertMessage = document.getElementById(messageId);
     const wrapper = document.createElement('div')
     wrapper.innerHTML = [
       `<div class="alert alert-${type} alert-dismissible" role="alert">`,
-      `   <div>${message}</div>`,
+      `   <div id="${messageId}">${message}</div>`,
       '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
       '</div>',
     ].join('')
 
+    console.log("childnode" + currencyError.children.length);
+    console.log(alertMessage);
     //if message already displayed dont display it again
-    if (currencyError.hasChildNodes() === false) {
+    if (currencyError.hasChildNodes() === false || alertMessage == null){
+
       currencyError.append(wrapper)
     }
   }
@@ -119,10 +120,10 @@ function App() {
   }, [])
 
   function conversion(currency1, currency2, amountInput) {
+    
     const API_KEY = '62e007a045241fd8f591e565';
     let convResult;
   
-    
     setConversionIsLoading(true);
   
     if (isNaN(amountInput) === false) {
@@ -144,9 +145,7 @@ function App() {
             setIsConversionDone(true);
             setConversionIsLoading(false);
             loading=false;
-          
-          //  console.log("loading"+loading)    
-           // console.log("conversion done?" + isConversionDone)
+
           },
           (error) => {},
         )
@@ -160,7 +159,6 @@ function App() {
   //Clear error messages
   function clearErrors(errorId) {
     const errorContainer = document.getElementById(errorId)
-    //console.log(errorContainer);
 
     if (errorContainer.hasChildNodes()) {
       errorContainer.replaceChildren()
@@ -169,42 +167,58 @@ function App() {
 
   function handleSubmit(event) {
     event.preventDefault()
-     console.log("state"+currencyValue1);
 
-    if (currencyValue1 === '' && currencyValue2 === '') {
-      alertMessageCurrency(currencyErrorMessage, alertType, currencyFromId)
-      alertMessageCurrency(currencyErrorMessage, alertType, currencyToId)
-    } else if (currencyValue1 === '') {
-      alertMessageCurrency(currencyErrorMessage, alertType, currencyFromId)
-    } else if (currencyValue2 === '') {
-      alert('please enter destination currency' + amountToConvert)
-      alertMessageCurrency(currencyErrorMessage, alertType, currencyToId)
-    }
+    if ((Object.entries(currencyValue1).length !== 0 && Object.entries(currencyValue2).length !== 0 && amountToConvert > 0)) {
+      console.log(currencyValue1, currencyValue2, amountToConvert, isConversionLoading)
+      conversion(currencyValue1, currencyValue2, amountToConvert,isConversionLoading)
 
+    }else{
+    if (Object.entries(currencyValue1).length === 0 && Object.entries(currencyValue2).length === 0) {
+      alertMessageCurrency(currencyErrorMessage, alertType, currencyFromId, messageFromId)
+      alertMessageCurrency(currencyErrorMessage, alertType, currencyToId, messageToId)
+    } else if (Object.entries(currencyValue1).length === 0 ) {
+      alertMessageCurrency(currencyErrorMessage, alertType, currencyFromId, messageFromId)
+     
+    } else if (Object.entries(currencyValue2).length === 0){
+      alertMessageCurrency(currencyErrorMessage, alertType, currencyToId, messageToId)
+    }else if (typeof currencyValue1 == "string" && typeof currencyValue1 == "string"){
+
+      if (currencyValue1 === '' && currencyValue2 === '') {
+        alertMessageCurrency(currencyErrorMessage, alertType, currencyFromId, messageFromId)
+        alertMessageCurrency(currencyErrorMessage, alertType, currencyToId, messageToId)
+      } else if (currencyValue1 === '') {
+        alertMessageCurrency(currencyErrorMessage, alertType, currencyFromId, messageFromId)
+      } else if (currencyValue2 === '') {
+        alert('please enter destination currency' + amountToConvert)
+        alertMessageCurrency(currencyErrorMessage, alertType, currencyToId, messageToId)
+      }
+    } 
     if (
       amountToConvert === '' ||
       amountToConvert === undefined ||
       amountToConvert <= 0
     ) {
       alertMessageAmount(amountErrorMessage, alertType)
-    } else {
-      conversion(currencyValue1, currencyValue2, amountToConvert,isConversionLoading)
-    }
-
-    //console.log("test" + amountToConvert)
+    } 
   }
+
+  }
+
+  
   return (
     <div className="App">
-      <div className="content-wrapper">
+
       <header className="App-header">
         <h1>Currency </h1>
         <h1>Converter</h1>
       </header>
+      <div className="content-wrapper">
+     
       <div className="conversion-wrapper">
         <ConversionForm
           currenciesAll={allCurrencies}
            // currencyInput1={handleChange}
-           currencyInput1={valueSelected1}
+          currencyInput1={valueSelected1}
           currencyInput2={valueSelected2}
           amountInput={amountToConvert}
           amountSet={setAmount}
@@ -221,10 +235,11 @@ function App() {
           convertedTo={currencyValue2}
         ></DisplayConversion>
       </div>
-        <footer className="App-footer">
-          <p>Made with React</p>
-        </footer>
+     
       </div>
+      <footer className="App-footer">
+        <p>Made with React</p>
+      </footer>
     </div>
   )
 }
@@ -305,7 +320,7 @@ function DropdownButtons({ currenciesList, selection1, selection2 }) {
   }
 
 
-let defaultCurrency = "CAD";
+let defaultCurrency = "Currency";
 let placeholderValue="Currency"
     const options = currencyArray.map((currencyCode) => ({
       "value": currencyCode.codeCurrency,
@@ -316,7 +331,7 @@ let placeholderValue="Currency"
   return (
     <div className="dropdowns">
       <label>
-        Pick a Currency:
+        From
       </label>
       <div className="select">
 
@@ -333,7 +348,7 @@ let placeholderValue="Currency"
       <div className="errorMessage" id="alertOriginCurrency"></div>
 
       <label>
-        Pick a Currency:
+        To
       </label>
 
    
@@ -343,6 +358,17 @@ let placeholderValue="Currency"
         placeholder={placeholderValue}
         options={options}
         onChange={selection2} />
+
+        {/* <select
+          className="slct-currency form-select form-select-lg mb-3"
+          id="currency2"
+          aria-label=".form-select-lg currency"
+          onChange={selection2}
+          required
+        >
+           {currencyItemsList} 
+        </select> */}
+      {/* <Select id="currency2" options={options} onChange={selection2} /> */}
       
       <div className="errorMessage" id="alertDestinationCurrency"></div>
     </div>
@@ -372,7 +398,7 @@ function AmountToConvert({ setAmount, amount }) {
 function SubmitBtn({ handleSubmit }) {
   return (
     <div className="button-wrapper">
-      <button onClick={handleSubmit}>submit</button>
+      <button className="submit-btn" onClick={handleSubmit}>submit</button>
     </div>
   )
 }
