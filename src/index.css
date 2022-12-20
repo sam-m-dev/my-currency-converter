@@ -23,7 +23,8 @@ body {
 .submit-btn,
 .button-wrapper,
 .App-footer,
-.App-footer p {
+.App-footer p,
+.result-section {
   display: flex;
 }
 
@@ -39,8 +40,8 @@ body {
   flex-direction: column;
 }
 
+/* .App-header h1, */
 .App-header,
-.App-header h1,
 .form-wrapper {
   padding: 5%;
 }
@@ -56,13 +57,14 @@ body {
 #root,
 .App-header,
 .converter-section,
+.conversion-wrapper,
 .button-wrapper {
   width: 100%;
 }
 
-.App,
+/* .App, */
+
 .submit-btn,
-.conversion-wrapper,
 .content-wrapper,
 .App-footer,
 .App-footer p {
@@ -94,7 +96,7 @@ body {
 }
 
 .App-header h1 {
-  margin: 2%;
+  padding:5%
 }
 
 .amount-input {
@@ -133,7 +135,10 @@ body {
   position: relative;
   box-sizing: border-box;
 }
-
+img{
+  width:20px;
+  height:auto
+}
 
 /* Colors */
 .submit-btn,
@@ -162,10 +167,27 @@ label,
 .amount-input,
 .App-footer p,
 .css-1jqq78o-placeholder,
-.css-1xc3v61-indicatorContainer {
+.css-1xc3v61-indicatorContainer,
+.result h1 {
   font-family: 'Readex Pro', sans-serif;
+
+}
+
+label,
+.submit-button,
+.App-header,
+.amount-input,
+.App-footer p,
+.css-1jqq78o-placeholder,
+.css-1xc3v61-indicatorContainer {
   font-size: 16px;
 }
+
+.result h1 {
+  font-size: 20px;
+  color: white;
+}
+
 
 .App-header h1,
 .submit-btn,
@@ -178,3 +200,72 @@ label {
   font-family: 'Saira', sans-serif;
 
 }
+
+.result-section {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin: 5% 0;
+  width: 100%;
+}
+
+.result {
+  display: flex;
+  flex-direction: column;
+  border-radius: 4px;
+  width: 90%;
+  padding: 5%;
+  align-items: center;
+  background-color: #0b3866;
+}
+
+.css-1dimb5e-singleValue,
+.css-10wo9uf-option,
+.css-qbdosj-Input {
+  color: #0b3866 !important;
+}
+
+.select__option--is-selected,
+.css-tr4s17-option {
+  background-color: #0b3866 !important;
+}
+
+.css-t3ipsp-control {
+  border-color: #0b3866 !important;
+  box-shadow: 0 0 0 1px #0b3866 !important;
+}
+
+/* select__option select__option--is-focused css-d7l1ni-option */
+.css-d7l1ni-option {
+  background-color: hsla(148, 89%, 78%, 1) !important;
+  color: #0b3866 !important;
+}
+
+
+input[type=text]:focus {
+  outline: none !important;
+  border: 2px solid #0b3866;
+  box-shadow: 0 0 10px hsla(148, 89%, 78%, 1);
+}
+
+/* textarea:focus {
+  outline: none !important;
+  border-color: red;
+  box-shadow: 0 0 10px green;
+} */
+
+/* small */
+@media (min-width: 576px) {}
+
+/* medium */
+@media (min-width: 768px) {}
+
+
+/* large */
+@media (min-width: 992px) {}
+
+/* extra large */
+@media (min-width: 1200px) {}
+
+/* xxl */
+@media (min-width: 1400px) {}

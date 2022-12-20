@@ -30,7 +30,7 @@ function App() {
   const messageFromId = 'errorOriginCurrency'
   const messageToId = 'errorDestinationCurrency'
 
-  const [currencyValue1, setCurrencyValue1] =useState({
+  const [currencyValue1, setCurrencyValue1] = useState({
     // selectOptions: [],
     // id: "",
     // name: ''
@@ -41,7 +41,7 @@ function App() {
     // id: "",
     // name: ''
   })
-  
+
   const valueSelected1 = (selectedOption) => {
     //console.log("valueSelected1: " + selectedOption.value);
     setCurrencyValue1(selectedOption.value);
@@ -74,16 +74,16 @@ function App() {
       '</div>',
     ].join('')
 
-  
+
     // When error message is generated the conatiner will have child nodes
     // So, if message is already displayed don't display it again
-    if (alertAmountContainer.hasChildNodes() === false || amountError ==null) {
+    if (alertAmountContainer.hasChildNodes() === false || amountError == null) {
       alertAmountContainer.append(wrapper)
     }
   }
 
   const alertMessageCurrency = (message, type, currencyMissing, messageId) => {
-  //const alertMessageCurrency = (message, type, currencyMissing, messageAlert) => {
+    //const alertMessageCurrency = (message, type, currencyMissing, messageAlert) => {
     const currencyError = document.getElementById(currencyMissing)
     const alertMessage = document.getElementById(messageId);
     const wrapper = document.createElement('div')
@@ -97,14 +97,15 @@ function App() {
     console.log("childnode" + currencyError.children.length);
     console.log(alertMessage);
     //if message already displayed dont display it again
-    if (currencyError.hasChildNodes() === false || alertMessage == null){
+    if (currencyError.hasChildNodes() === false || alertMessage == null) {
 
       currencyError.append(wrapper)
     }
   }
 
   useEffect(() => {
-    fetch('https://restcountries.com/v2/all?fields=currencies')
+    fetch('https://restcountries.com/v2/all?fields=currencies,flags')
+      //fetch('https://restcountries.com/v2/all?fields=currencies')
       .then((res) => res.json())
       .then(
         (result) => {
@@ -120,14 +121,14 @@ function App() {
   }, [])
 
   function conversion(currency1, currency2, amountInput) {
-    
+
     const API_KEY = '62e007a045241fd8f591e565';
     let convResult;
-  
+
     setConversionIsLoading(true);
-  
+
     if (isNaN(amountInput) === false) {
-    
+
       loading = true;
       console.log("before fetch conversion loading?" + loading)
       fetch(
@@ -144,10 +145,10 @@ function App() {
             setResultConversion(result.conversion_result)
             setIsConversionDone(true);
             setConversionIsLoading(false);
-            loading=false;
+            loading = false;
 
           },
-          (error) => {},
+          (error) => { },
         )
     } else {
       alert('The amount must be a number')
@@ -170,72 +171,71 @@ function App() {
 
     if ((Object.entries(currencyValue1).length !== 0 && Object.entries(currencyValue2).length !== 0 && amountToConvert > 0)) {
       console.log(currencyValue1, currencyValue2, amountToConvert, isConversionLoading)
-      conversion(currencyValue1, currencyValue2, amountToConvert,isConversionLoading)
+      conversion(currencyValue1, currencyValue2, amountToConvert, isConversionLoading)
 
-    }else{
-    if (Object.entries(currencyValue1).length === 0 && Object.entries(currencyValue2).length === 0) {
-      alertMessageCurrency(currencyErrorMessage, alertType, currencyFromId, messageFromId)
-      alertMessageCurrency(currencyErrorMessage, alertType, currencyToId, messageToId)
-    } else if (Object.entries(currencyValue1).length === 0 ) {
-      alertMessageCurrency(currencyErrorMessage, alertType, currencyFromId, messageFromId)
-     
-    } else if (Object.entries(currencyValue2).length === 0){
-      alertMessageCurrency(currencyErrorMessage, alertType, currencyToId, messageToId)
-    }else if (typeof currencyValue1 == "string" && typeof currencyValue1 == "string"){
-
-      if (currencyValue1 === '' && currencyValue2 === '') {
+    } else {
+      if (Object.entries(currencyValue1).length === 0 && Object.entries(currencyValue2).length === 0) {
         alertMessageCurrency(currencyErrorMessage, alertType, currencyFromId, messageFromId)
         alertMessageCurrency(currencyErrorMessage, alertType, currencyToId, messageToId)
-      } else if (currencyValue1 === '') {
+      } else if (Object.entries(currencyValue1).length === 0) {
         alertMessageCurrency(currencyErrorMessage, alertType, currencyFromId, messageFromId)
-      } else if (currencyValue2 === '') {
-        alert('please enter destination currency' + amountToConvert)
+
+      } else if (Object.entries(currencyValue2).length === 0) {
         alertMessageCurrency(currencyErrorMessage, alertType, currencyToId, messageToId)
+      } else if (typeof currencyValue1 == "string" && typeof currencyValue1 == "string") {
+
+        if (currencyValue1 === '' && currencyValue2 === '') {
+          alertMessageCurrency(currencyErrorMessage, alertType, currencyFromId, messageFromId)
+          alertMessageCurrency(currencyErrorMessage, alertType, currencyToId, messageToId)
+        } else if (currencyValue1 === '') {
+          alertMessageCurrency(currencyErrorMessage, alertType, currencyFromId, messageFromId)
+        } else if (currencyValue2 === '') {
+          alert('please enter destination currency' + amountToConvert)
+          alertMessageCurrency(currencyErrorMessage, alertType, currencyToId, messageToId)
+        }
       }
-    } 
-    if (
-      amountToConvert === '' ||
-      amountToConvert === undefined ||
-      amountToConvert <= 0
-    ) {
-      alertMessageAmount(amountErrorMessage, alertType)
-    } 
-  }
+      if (
+        amountToConvert === '' ||
+        amountToConvert === undefined ||
+        amountToConvert <= 0
+      ) {
+        alertMessageAmount(amountErrorMessage, alertType)
+      }
+    }
 
   }
 
-  
+
   return (
-    <div className="App">
+    <div className="App container-md">
 
       <header className="App-header">
-        <h1>Currency </h1>
-        <h1>Converter</h1>
+        <h1>Currency Converter</h1>
       </header>
       <div className="content-wrapper">
-     
-      <div className="conversion-wrapper">
-        <ConversionForm
-          currenciesAll={allCurrencies}
-           // currencyInput1={handleChange}
-          currencyInput1={valueSelected1}
-          currencyInput2={valueSelected2}
-          amountInput={amountToConvert}
-          amountSet={setAmount}
-          conversionResult={resultConversion}
-          setConversionResult={setResultConversion}
-          submitConversion={handleSubmit}
-        ></ConversionForm>
-        <DisplayConversion
-          isConverted={isConversionDone}
-          loadingStatus={isConversionLoading}
-          amountConverted={amountToConvert}
-          convResult={resultConversion}
-          convertedFrom={currencyValue1}
-          convertedTo={currencyValue2}
-        ></DisplayConversion>
-      </div>
-     
+
+        <div className="conversion-wrapper">
+          <ConversionForm
+            currenciesAll={allCurrencies}
+            // currencyInput1={handleChange}
+            currencyInput1={valueSelected1}
+            currencyInput2={valueSelected2}
+            amountInput={amountToConvert}
+            amountSet={setAmount}
+            conversionResult={resultConversion}
+            setConversionResult={setResultConversion}
+            submitConversion={handleSubmit}
+          ></ConversionForm>
+          <DisplayConversion
+            isConverted={isConversionDone}
+            loadingStatus={isConversionLoading}
+            amountConverted={amountToConvert}
+            convResult={resultConversion}
+            convertedFrom={currencyValue1}
+            convertedTo={currencyValue2}
+          ></DisplayConversion>
+        </div>
+
       </div>
       <footer className="App-footer">
         <p>Made with React</p>
@@ -246,15 +246,63 @@ function App() {
 
 function addToArray(currencyToAddObject) {
 
-
   if (currencyArray.some(currency => currency.codeCurrency === currencyToAddObject.codeCurrency)) {
 
-  }else{
-      currencyArray.push(currencyToAddObject);
+  } else {
+    // console.log(currencyToAddObject)
+    currencyArray.push(currencyToAddObject);
   }
 
 }
 
+// function sharedCurrencies(curencyToCheck){
+
+// let flagSrc;
+//   switch (curencyToCheck) {
+//     case "EUR":
+//         flagSrc="https://flagcdn.com/eu.svg"
+//       console.log(curencyToCheck + " - euro")
+//       break;
+//     case "USD":
+//       console.log("usd")
+//       break;
+//     default:
+//       console.log("not usd or eu")
+//   }
+// return flagSrc
+// }
+
+//
+// function countryFlag(code){
+
+//   let codeCountry=code.currencies;
+
+//   let flagUrls = code.flags;
+//   let firstCurrency;
+//   let secondCurrency;
+//   let flagUrlSvg;
+//   let flagUrlPng;
+
+//   // let flagUrlSvg = flagUrls.svg;
+//   // let flagUrlPng = flagUrls.png;
+
+//    //console.log(flagUrl);
+//   if (codeCountry.length === 1){
+//     firstCurrency= codeCountry[0].code;
+//     console.log(firstCurrency);
+//    // sharedCurrencies(firstCurrency)
+
+//   } else if (codeCountry.length === 2){
+//     firstCurrency = codeCountry[0].code;
+//     secondCurrency = codeCountry[1].code;
+//     console.log(firstCurrency, secondCurrency);
+//   }
+
+
+
+
+
+// }
 
 function ConversionForm({
   amountInput,
@@ -287,47 +335,109 @@ function ConversionForm({
 }
 
 function DropdownButtons({ currenciesList, selection1, selection2 }) {
- //console.log(currenciesList);
+  //console.log(currenciesList);
 
 
   for (let i = 0; i < currenciesList.length; i++) {
     let currencyItem = currenciesList[i]
     let currencyInfo = currencyItem.currencies
-  
+    let currencyFlags = currencyItem.flags;
 
+ //   console.log(currencyInfo ,currencyFlags)
     if (currencyInfo !== undefined) {
+
+
+      let svgFlag;
+      let pngFlag;
+
+      // let svgFlag = currencyFlags.svg;
+      // let pngFlag = currencyFlags.png;
+      let code = currencyInfo[0]['code'];
+      let name=currencyInfo[0]['name'];
+ 
+//console.log(currencyItem)
+      switch (code) {
+        case "EUR":
+          svgFlag = "https://flagcdn.com/eu.svg"
+          pngFlag ="https://flagcdn.com/w320/eu.png"
+        //  console.log(code, svgFlag)
+          break;
+        case "USD":
+          svgFlag = "https://flagcdn.com/us.svg"
+          pngFlag = "https://flagcdn.com/w320/us.png"
+        //  console.log(code, svgFlag)
+          break;
+        case "GBP":
+          svgFlag = "https://flagcdn.com/gb.svg"
+          pngFlag = "https://flagcdn.com/w320/gb.png"
+          //  console.log(code, svgFlag)
+          break;
+        case "INR":
+          svgFlag = "https://flagcdn.com/in.svg"
+          pngFlag = "https://flagcdn.com/w320/in.png" 
+          //  console.log(code, svgFlag)
+          break;
+        default:
+          svgFlag = currencyFlags.svg
+          pngFlag=currencyFlags.png
+        //  console.log(code, svgFlag)
+      }
+
+
+
+      console.log(svgFlag, pngFlag, code, name)
+
       let currencyObject = {
         codeCurrency: currencyInfo[0]['code'],
-        name: currencyInfo[0]['name']
+        name: currencyInfo[0]['name'],
+        flagSVG: svgFlag,
+        flagPNG: pngFlag
+
+
       }
+
       //some countries have more than one currency
       if (currencyInfo.length <= 1) {
-  
-   
+
         addToArray(currencyObject)
       } else if (currencyInfo.length === 2) {
 
         addToArray(currencyObject)
         let currencyObject2 = {
-          codeCurrency: currencyInfo[0]['code'],
-          name: currencyInfo[0]['name']
+          codeCurrency: currencyInfo[1]['code'],
+          name: currencyInfo[1]['name'],
+          flagSVG: svgFlag,
+          flagPNG: pngFlag
         }
         addToArray(currencyObject2)
-      
+
       }
     }
-    
+
   }
 
-
-let defaultCurrency = "Currency";
-let placeholderValue="Currency"
-    const options = currencyArray.map((currencyCode) => ({
-      "value": currencyCode.codeCurrency,
-      "label": currencyCode.codeCurrency
-    }))
+  // console.log(currencyArray);
 
 
+
+  let defaultCurrency = "Currency";
+  let placeholderValue = "Currency"
+  let test = "eu"
+  let image = document.createElement("img");
+  const options = currencyArray.map((currencyCode) => ({
+    "value": currencyCode.codeCurrency,
+    "label": <div><img src={currencyCode.flagSVG} /> <span>{currencyCode.codeCurrency} - {currencyCode.name}</span></div>
+    // "label": currencyCode.codeCurrency + " - " + currencyCode.name + `<img src="${currencyCode.flagSVG}">` 
+    //"value":currencyCode.name
+  }))
+
+  //   const options = currencyArray.forEach(element => {
+  //     console.log(element.codeCurrency);
+  //  // console.log(element);
+  // });
+
+
+  console.log(options);
   return (
     <div className="dropdowns">
       <label>
@@ -337,21 +447,21 @@ let placeholderValue="Currency"
 
 
         <Select className="basic-single"
-        classNamePrefix="select"
-        options={options}
-        placeholder={defaultCurrency}
-        onChange={selection1}/>
-     
+          classNamePrefix="select"
+          options={options}
+          placeholder={defaultCurrency}
+          onChange={selection1} />
+
       </div>
-      
-      
+
+
       <div className="errorMessage" id="alertOriginCurrency"></div>
 
       <label>
         To
       </label>
 
-   
+
       <Select className="basic-single"
         classNamePrefix="select"
         isSearchable="true"
@@ -359,7 +469,7 @@ let placeholderValue="Currency"
         options={options}
         onChange={selection2} />
 
-        {/* <select
+      {/* <select
           className="slct-currency form-select form-select-lg mb-3"
           id="currency2"
           aria-label=".form-select-lg currency"
@@ -369,7 +479,7 @@ let placeholderValue="Currency"
            {currencyItemsList} 
         </select> */}
       {/* <Select id="currency2" options={options} onChange={selection2} /> */}
-      
+
       <div className="errorMessage" id="alertDestinationCurrency"></div>
     </div>
   )
@@ -381,15 +491,15 @@ function AmountToConvert({ setAmount, amount }) {
       <label>
         Amount:
       </label>
-        <input
-          className="amount-input mb-3"
-          type="text"
-          name="amount"
-          value={amount}
-          onChange={setAmount}
-          required
-        />
-     
+      <input
+        className="amount-input mb-3"
+        type="text"
+        name="amount"
+        value={amount}
+        onChange={setAmount}
+        required
+      />
+
       <div className="errorMessage" id="alertMessageAmount"></div>
     </div>
   )
@@ -406,27 +516,26 @@ function SubmitBtn({ handleSubmit }) {
 function Result({ amountConverted, convResult, convertedTo, convertedFrom }) {
   //console.log('test' + amountConverted)
   return (
- 
+
     <section className='result-section'>
 
       <div className="result">
-        <h1>result</h1>
-        <p>
-          {amountConverted}
-          {convertedFrom} is {convResult} {convertedTo}{' '}
-        </p>
+        {/* <h1>result</h1> */}
+        <h1>{amountConverted}{' '}{convertedFrom}</h1>
+        <h1>=</h1>
+        <h1>{' '}{convResult}{' '}{convertedTo}</h1>
       </div>
     </section>
   )
 }
 
-function LoadingConversion(){
- 
-    return (
-      <div className="spinner-border" role="status">
-        <span className="visually-hidden">Loading...</span>
-      </div>
-    )
+function LoadingConversion() {
+
+  return (
+    <div className="spinner-border" role="status">
+      <span className="visually-hidden">Loading...</span>
+    </div>
+  )
 
 }
 
@@ -440,13 +549,13 @@ function DisplayConversion({
 }) {
 
   console.log(loadingStatus)
-  if ((loadingStatus !== false) && (isConverted === false)){
-    return(
-      <LoadingConversion></LoadingConversion> 
+  if ((loadingStatus !== false) && (isConverted === false)) {
+    return (
+      <LoadingConversion></LoadingConversion>
     )
     // 
-   
-  } else if((isConverted ===  true) && (loadingStatus === false)){
+
+  } else if ((isConverted === true) && (loadingStatus === false)) {
     return (
       <Result
         amountConverted={amountConverted}
@@ -455,8 +564,8 @@ function DisplayConversion({
         convertedTo={convertedTo}
       ></Result>
     )
-  } 
-  
+  }
+
 }
 
 export default App
