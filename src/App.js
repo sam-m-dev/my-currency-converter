@@ -2,6 +2,7 @@ import './App.css'
 import { useEffect, useState } from 'react'
 import React from 'react'
 import Select from 'react-select'
+import { ConnectingAirportsOutlined } from '@mui/icons-material'
 
 
 let currencyInfo
@@ -336,84 +337,129 @@ function ConversionForm({
 
 function DropdownButtons({ currenciesList, selection1, selection2 }) {
   //console.log(currenciesList);
-
+  let svgFlag;
+  let pngFlag;
+  let code;
+  let codeName;
+  let name;
+  let code2;
+  let name2;
 
   for (let i = 0; i < currenciesList.length; i++) {
     let currencyItem = currenciesList[i]
     let currencyInfo = currencyItem.currencies
     let currencyFlags = currencyItem.flags;
 
- //   console.log(currencyInfo ,currencyFlags)
     if (currencyInfo !== undefined) {
+  
+      for(let i=0; i<currencyInfo.length; i++){
+
+        code = currencyInfo[i]['code'];
+        codeName = currencyInfo[i]['name'];
+       // console.log(code)
+        switch (code) {
+          case "EUR":
+            svgFlag="https://flagcdn.com/eu.svg"
+            pngFlag = "https://flagcdn.com/w320/eu.png"
+             // console.log(svgFlag)
+            break;
+          case "USD":
+            svgFlag = "https://flagcdn.com/us.svg"
+            pngFlag = "https://flagcdn.com/w320/us.png"
+       //     console.log(svgFlag)
+            break;
+          case "GBP":
+            svgFlag = "https://flagcdn.com/gb.svg"
+            pngFlag = "https://flagcdn.com/w320/gb.png"
+            //     console.log(svgFlag)
+            break;
+          case "INR":
+            svgFlag = "https://flagcdn.com/in.svg"
+            pngFlag = "https://flagcdn.com/w320/in.png"
+            //     console.log(svgFlag)
+            break;
+          case "SGD":
+            svgFlag = "https://flagcdn.com/sg.svg"
+            pngFlag = "https://flagcdn.com/w320/sg.png"
+            //     console.log(svgFlag)
+            break;
+          default:
+            svgFlag=currencyFlags.svg
+            pngFlag=currencyFlags.png
+            console.log(code,svgFlag, pngFlag)
+        }
 
 
-      let svgFlag;
-      let pngFlag;
-
-      // let svgFlag = currencyFlags.svg;
-      // let pngFlag = currencyFlags.png;
-      let code = currencyInfo[0]['code'];
-      let name=currencyInfo[0]['name'];
- 
-//console.log(currencyItem)
-      switch (code) {
-        case "EUR":
-          svgFlag = "https://flagcdn.com/eu.svg"
-          pngFlag ="https://flagcdn.com/w320/eu.png"
-        //  console.log(code, svgFlag)
-          break;
-        case "USD":
-          svgFlag = "https://flagcdn.com/us.svg"
-          pngFlag = "https://flagcdn.com/w320/us.png"
-        //  console.log(code, svgFlag)
-          break;
-        case "GBP":
-          svgFlag = "https://flagcdn.com/gb.svg"
-          pngFlag = "https://flagcdn.com/w320/gb.png"
-          //  console.log(code, svgFlag)
-          break;
-        case "INR":
-          svgFlag = "https://flagcdn.com/in.svg"
-          pngFlag = "https://flagcdn.com/w320/in.png" 
-          //  console.log(code, svgFlag)
-          break;
-        default:
-          svgFlag = currencyFlags.svg
-          pngFlag=currencyFlags.png
-        //  console.log(code, svgFlag)
-      }
-
-
-
-      console.log(svgFlag, pngFlag, code, name)
-
-      let currencyObject = {
-        codeCurrency: currencyInfo[0]['code'],
-        name: currencyInfo[0]['name'],
+        let currencyObject = {
+        codeCurrency: code,
+        name: codeName,
         flagSVG: svgFlag,
         flagPNG: pngFlag
+        }
 
+        addToArray(currencyObject)
+  
 
       }
+
+
+      
+
+      // if(currencyInfo.length === 1 ){
+      //     code = currencyInfo[0]['code'];
+      //     name = currencyInfo[0]['name'];
+      //     console.log(currencyInfo.length, code,name,currencyFlags);
+
+
+
+
+      // } else if (currencyInfo.length === 2){
+      //     code = currencyInfo[0]['code'];
+      //     name = currencyInfo[0]['name'];
+      //     code2 = currencyInfo[1]['code'];
+      //     name2 = currencyInfo[1]['name'];
+      //   console.log("more than1:", code, name, code2, name2, currencyFlags);
+      // }
+ 
+    }
+      // for (let i = 0; i < currencyInfo.length; i++) {
+   
+      //  
+      // }
+   
+  
+      //console.log(currencyItem)
+      
+
+     // console.log(svgFlag, pngFlag, code, name)
+
+      // let currencyObject = {
+      //   codeCurrency: currencyInfo[0]['code'],
+      //   name: currencyInfo[0]['name'],
+      //   flagSVG: svgFlag,
+      //   flagPNG: pngFlag
+
+
+      // }
 
       //some countries have more than one currency
-      if (currencyInfo.length <= 1) {
+      // if (currencyInfo.length <= 1) {
 
-        addToArray(currencyObject)
-      } else if (currencyInfo.length === 2) {
+      //   addToArray(currencyObject)
+      // } else if (currencyInfo.length === 2) {
 
-        addToArray(currencyObject)
-        let currencyObject2 = {
-          codeCurrency: currencyInfo[1]['code'],
-          name: currencyInfo[1]['name'],
-          flagSVG: svgFlag,
-          flagPNG: pngFlag
-        }
-        addToArray(currencyObject2)
+      //   addToArray(currencyObject)
+      //   let currencyObject2 = {
+      //     codeCurrency: currencyInfo[1]['code'],
+      //     name: currencyInfo[1]['name'],
+      //     flagSVG: svgFlag,
+      //     flagPNG: pngFlag
+      //   }
+      //   addToArray(currencyObject2)
 
-      }
-    }
-
+      // }
+   // }
+  
   }
 
   // console.log(currencyArray);
