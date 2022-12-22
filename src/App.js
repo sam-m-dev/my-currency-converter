@@ -2,34 +2,32 @@ import './App.css'
 import { useEffect, useState } from 'react'
 import React from 'react'
 import Select from 'react-select'
-import { ConnectingAirportsOutlined } from '@mui/icons-material'
 
-
-let currencyInfo
-let currencyArray = new Array()
+let currencyInfo;
+let currencyArray = new Array();
 let loading;
 
 
 function App() {
 
 
-  const [allCurrencies, setAllCurrencies] = useState([])
-  const [amountToConvert, setAmountToConvert] = useState(0)
-  const [isLoading, setIsLoading] = useState(true)
-  const [isConversionLoading, setConversionIsLoading] = useState(false)
-  const [errorMessage, setErrorMessage] = useState(null)
-  const [resultConversion, setResultConversion] = useState('')
-  const [isConversionDone, setIsConversionDone] = useState(false)
+  const [allCurrencies, setAllCurrencies] = useState([]);
+  const [amountToConvert, setAmountToConvert] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isConversionLoading, setConversionIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [resultConversion, setResultConversion] = useState('');
+  const [isConversionDone, setIsConversionDone] = useState(false);
 
-  const alertAmountContainer = document.getElementById('alertMessageAmount')
-  const currencyErrorMessage = 'Please enter a currency'
-  const amountErrorMessage = 'Please enter a valid amount'
-  const alertType = 'danger'
-  const currencyFromId = 'alertOriginCurrency'
-  const currencyToId = 'alertDestinationCurrency'
-  const amountId = 'alertMessageAmount'
-  const messageFromId = 'errorOriginCurrency'
-  const messageToId = 'errorDestinationCurrency'
+  const alertAmountContainer = document.getElementById('alertMessageAmount');
+  const currencyErrorMessage = 'Please enter a currency';
+  const amountErrorMessage = 'Please enter a valid amount';
+  const alertType = 'danger';
+  const currencyFromId = 'alertOriginCurrency';
+  const currencyToId = 'alertDestinationCurrency';
+  const amountId = 'alertMessageAmount';
+  const messageFromId = 'errorOriginCurrency';
+  const messageToId = 'errorDestinationCurrency';
 
   const [currencyValue1, setCurrencyValue1] = useState({
     // selectOptions: [],
@@ -106,7 +104,6 @@ function App() {
 
   useEffect(() => {
     fetch('https://restcountries.com/v2/all?fields=currencies,flags')
-      //fetch('https://restcountries.com/v2/all?fields=currencies')
       .then((res) => res.json())
       .then(
         (result) => {
@@ -206,9 +203,8 @@ function App() {
 
   }
 
-
   return (
-    <div className="App container-md">
+    <div className="App">
 
       <header className="App-header">
         <h1>Currency Converter</h1>
@@ -256,55 +252,6 @@ function addToArray(currencyToAddObject) {
 
 }
 
-// function sharedCurrencies(curencyToCheck){
-
-// let flagSrc;
-//   switch (curencyToCheck) {
-//     case "EUR":
-//         flagSrc="https://flagcdn.com/eu.svg"
-//       console.log(curencyToCheck + " - euro")
-//       break;
-//     case "USD":
-//       console.log("usd")
-//       break;
-//     default:
-//       console.log("not usd or eu")
-//   }
-// return flagSrc
-// }
-
-//
-// function countryFlag(code){
-
-//   let codeCountry=code.currencies;
-
-//   let flagUrls = code.flags;
-//   let firstCurrency;
-//   let secondCurrency;
-//   let flagUrlSvg;
-//   let flagUrlPng;
-
-//   // let flagUrlSvg = flagUrls.svg;
-//   // let flagUrlPng = flagUrls.png;
-
-//    //console.log(flagUrl);
-//   if (codeCountry.length === 1){
-//     firstCurrency= codeCountry[0].code;
-//     console.log(firstCurrency);
-//    // sharedCurrencies(firstCurrency)
-
-//   } else if (codeCountry.length === 2){
-//     firstCurrency = codeCountry[0].code;
-//     secondCurrency = codeCountry[1].code;
-//     console.log(firstCurrency, secondCurrency);
-//   }
-
-
-
-
-
-// }
-
 function ConversionForm({
   amountInput,
   amountSet,
@@ -316,8 +263,8 @@ function ConversionForm({
   submitConversion,
 }) {
   return (
-    <section className="converter-section">
-      <div className="form-wrapper">
+    <section className="converter-section row">
+      <div className="form-wrapper col-12 col-sm-10 col-md-8 col-lg-7 col-xxl-6">
         <form className="needs-validation">
           <DropdownButtons
             currenciesList={currenciesAll}
@@ -341,10 +288,7 @@ function DropdownButtons({ currenciesList, selection1, selection2 }) {
   let pngFlag;
   let code;
   let codeName;
-  let name;
-  let code2;
-  let name2;
-
+ 
   for (let i = 0; i < currenciesList.length; i++) {
     let currencyItem = currenciesList[i]
     let currencyInfo = currencyItem.currencies
@@ -402,110 +346,43 @@ function DropdownButtons({ currenciesList, selection1, selection2 }) {
 
       }
 
-
-      
-
-      // if(currencyInfo.length === 1 ){
-      //     code = currencyInfo[0]['code'];
-      //     name = currencyInfo[0]['name'];
-      //     console.log(currencyInfo.length, code,name,currencyFlags);
-
-
-
-
-      // } else if (currencyInfo.length === 2){
-      //     code = currencyInfo[0]['code'];
-      //     name = currencyInfo[0]['name'];
-      //     code2 = currencyInfo[1]['code'];
-      //     name2 = currencyInfo[1]['name'];
-      //   console.log("more than1:", code, name, code2, name2, currencyFlags);
-      // }
- 
     }
-      // for (let i = 0; i < currencyInfo.length; i++) {
-   
-      //  
-      // }
-   
-  
-      //console.log(currencyItem)
-      
 
-     // console.log(svgFlag, pngFlag, code, name)
-
-      // let currencyObject = {
-      //   codeCurrency: currencyInfo[0]['code'],
-      //   name: currencyInfo[0]['name'],
-      //   flagSVG: svgFlag,
-      //   flagPNG: pngFlag
-
-
-      // }
-
-      //some countries have more than one currency
-      // if (currencyInfo.length <= 1) {
-
-      //   addToArray(currencyObject)
-      // } else if (currencyInfo.length === 2) {
-
-      //   addToArray(currencyObject)
-      //   let currencyObject2 = {
-      //     codeCurrency: currencyInfo[1]['code'],
-      //     name: currencyInfo[1]['name'],
-      //     flagSVG: svgFlag,
-      //     flagPNG: pngFlag
-      //   }
-      //   addToArray(currencyObject2)
-
-      // }
-   // }
-  
   }
-
-  // console.log(currencyArray);
 
 
 
   let defaultCurrency = "Currency";
   let placeholderValue = "Currency"
-  let test = "eu"
-  let image = document.createElement("img");
+
   const options = currencyArray.map((currencyCode) => ({
     "value": currencyCode.codeCurrency,
-    "label": <div><img src={currencyCode.flagSVG} /> <span>{currencyCode.codeCurrency} - {currencyCode.name}</span></div>
-    // "label": currencyCode.codeCurrency + " - " + currencyCode.name + `<img src="${currencyCode.flagSVG}">` 
-    //"value":currencyCode.name
+    "label": <div className="currency-item"><div className="flag-wrapper"><img className="flag-icon rounded-circle" src={currencyCode.flagSVG} /></div> <span className="currency-name">{currencyCode.codeCurrency} - {currencyCode.name}</span></div>
   }))
 
-  //   const options = currencyArray.forEach(element => {
-  //     console.log(element.codeCurrency);
-  //  // console.log(element);
-  // });
 
 
   console.log(options);
   return (
     <div className="dropdowns">
-      <label>
-        From
-      </label>
-      <div className="select">
-
-
-        <Select className="basic-single"
-          classNamePrefix="select"
-          options={options}
-          placeholder={defaultCurrency}
-          onChange={selection1} />
-
+      <div className="select" id="select1">
+        <label>
+          From
+        
+          <Select className="basic-single"
+            classNamePrefix="select"
+            options={options}
+            placeholder={defaultCurrency}
+            onChange={selection1} />
+        </label>
       </div>
 
-
+ 
       <div className="errorMessage" id="alertOriginCurrency"></div>
-
+   <div className="select" id="select2">
       <label>
         To
-      </label>
+     
 
 
       <Select className="basic-single"
@@ -514,6 +391,7 @@ function DropdownButtons({ currenciesList, selection1, selection2 }) {
         placeholder={placeholderValue}
         options={options}
         onChange={selection2} />
+      
 
       {/* <select
           className="slct-currency form-select form-select-lg mb-3"
@@ -526,6 +404,8 @@ function DropdownButtons({ currenciesList, selection1, selection2 }) {
         </select> */}
       {/* <Select id="currency2" options={options} onChange={selection2} /> */}
 
+      </label>
+      </div>
       <div className="errorMessage" id="alertDestinationCurrency"></div>
     </div>
   )
@@ -534,18 +414,21 @@ function DropdownButtons({ currenciesList, selection1, selection2 }) {
 function AmountToConvert({ setAmount, amount }) {
   return (
     <div className="amount">
-      <label>
-        Amount:
-      </label>
-      <input
-        className="amount-input mb-3"
-        type="text"
-        name="amount"
-        value={amount}
-        onChange={setAmount}
-        required
-      />
-
+      <div className="select-amount">
+        <label>
+          Amount: 
+          <div className='amount-single'>
+          <input
+            className="amount-input"
+            type="number"
+            name="amount"
+            value={amount}
+            onChange={setAmount}
+            required
+          />
+          </div>
+        </label>
+      </div>
       <div className="errorMessage" id="alertMessageAmount"></div>
     </div>
   )
@@ -578,8 +461,10 @@ function Result({ amountConverted, convResult, convertedTo, convertedFrom }) {
 function LoadingConversion() {
 
   return (
-    <div className="spinner-border" role="status">
-      <span className="visually-hidden">Loading...</span>
+    <div className="loading-container">
+      <div className="spinner-grow text-info" role="status">
+        <span className="visually-hidden">Loading...</span>
+      </div>
     </div>
   )
 
@@ -603,6 +488,7 @@ function DisplayConversion({
 
   } else if ((isConverted === true) && (loadingStatus === false)) {
     return (
+     
       <Result
         amountConverted={amountConverted}
         convResult={convResult}

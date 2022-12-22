@@ -2,12 +2,37 @@
   min-height: 100vh;
 }
 
-body {
+
+
+.select__control,
+.css-13cymwt-control .select__control--is-focused,
+.css-t3ipsp-control .css-13cymwt-control,
+.amount-input {
+  height: 100% !important;
+  width: 100% !important;
+  background-color: #EBEBD3 !important;
+}
+
+.select,
+.select-amount {
+  margin: 5% 0;
+  padding: 5%;
+}
+
+.select-amount {
+  /* padding: 5%; */
+}
+
+/* body {
   background: hsla(148, 89%, 78%, 1);
   background: linear-gradient(90deg, hsla(148, 89%, 78%, 1) 0%, hsl(210, 81%, 22%, 1) 100%);
   background: -moz-linear-gradient(90deg, hsla(148, 89%, 78%, 1) 0%, hsla(210, 81%, 22%, 1) 100%);
   background: -webkit-linear-gradient(90deg, hsla(148, 89%, 78%, 1) 0%, hsla(210, 81%, 22%, 1) 100%);
   filter: progid: DXImageTransform.Microsoft.gradient(startColorstr="#95F9C3", endColorstr="#0B3866", GradientType=1);
+} */
+label {
+  display: flex;
+  flex-direction: column;
 }
 
 .App,
@@ -41,9 +66,9 @@ body {
 }
 
 /* .App-header h1, */
-.App-header,
+
 .form-wrapper {
-  padding: 5%;
+ padding: 2% 5%
 }
 
 #root,
@@ -54,6 +79,7 @@ body {
   justify-content: center;
 }
 
+.App,
 #root,
 .App-header,
 .converter-section,
@@ -62,17 +88,24 @@ body {
   width: 100%;
 }
 
-/* .App, */
+.button-wrapper {
+  margin: 5% auto;
+}
 
+.App-header,.content-wrapper, .App-footer {
+  width: 98%;
+}
+
+/* .App, */
+.App-header h1,
 .submit-btn,
-.content-wrapper,
-.App-footer,
 .App-footer p {
   width: 90%;
 }
 
 .App-footer p,
-.basic-single {
+.basic-single,
+.amount-single {
   margin: 5% auto;
 }
 
@@ -91,12 +124,16 @@ body {
 }
 
 .App-header {
-  align-items: flex-start;
-  margin: 5% auto;
+  align-items: center;
+  /* background-color: #0b3866; */
+  padding: 5%;
 }
 
 .App-header h1 {
-  padding:5%
+  padding: 5%;
+  font-size: 2em;
+  justify-content: center;
+  color: #0b3866;
 }
 
 .amount-input {
@@ -119,8 +156,9 @@ body {
 
 .conversion-wrapper {
   border-radius: 10px;
-  margin: 10% auto;
+  margin: 5% auto;
   min-height: 70%;
+  align-items: center;
 }
 
 .App-footer {
@@ -131,13 +169,40 @@ body {
   padding: 2%;
 }
 
-.basic-single {
+.basic-single,
+.amount-single {
   position: relative;
   box-sizing: border-box;
+  display: flex;
+  width: 100%;
 }
-img{
-  width:20px;
-  height:auto
+
+.flag-icon {
+
+  width: 20px;
+  /* width of container */
+  height: 20px;
+  /* height of container */
+  object-fit: cover;
+  /* border: 1px solid hsl(0, 0%, 80%); */
+
+}
+
+.currency-item {
+  display: flex;
+
+}
+
+.flag-wrapper {
+  display: flex;
+  align-items: center;
+  width: 20%;
+  justify-content: center;
+  padding: 5%;
+}
+
+.currency-name {
+  padding: 5%;
 }
 
 /* Colors */
@@ -146,15 +211,16 @@ img{
   background-color: #0b3866 !important;
 }
 
+label,
 .amount-input,
-.footer p,
+.App-footer p,
 .css-1jqq78o-placeholder,
 .css-1xc3v61-indicatorContainer {
   color: #0b3866 !important;
 
 }
 
-label,
+
 .submit-btn,
 .App-header {
   color: white;
@@ -189,6 +255,7 @@ label,
 }
 
 
+
 .App-header h1,
 .submit-btn,
 label {
@@ -211,6 +278,7 @@ label {
 
 .result {
   display: flex;
+  flex-wrap: wrap;
   flex-direction: column;
   border-radius: 4px;
   width: 90%;
@@ -241,6 +309,9 @@ label {
   color: #0b3866 !important;
 }
 
+.converter-section {
+  align-items: center;
+}
 
 input[type=text]:focus {
   outline: none !important;
@@ -254,6 +325,44 @@ input[type=text]:focus {
   box-shadow: 0 0 10px green;
 } */
 
+.loading-container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  padding: 5%;
+  margin: 5% 0;
+}
+
+.text-info {
+  color: #0b3866 !important;
+}
+
+.App-header h1 {
+  display: flex;
+  padding: 0;
+  margin: 0;
+}
+
+#select1 {
+  background-color: #F4D35E;
+
+}
+
+#select2 {
+  background-color: #70877F;
+
+}
+
+.select-amount {
+  background-color: #3A5743;
+}
+
+#select1,
+#select2,
+.select-amount {
+  border-radius: 4px;
+}
+
 /* small */
 @media (min-width: 576px) {}
 
@@ -262,7 +371,11 @@ input[type=text]:focus {
 
 
 /* large */
-@media (min-width: 992px) {}
+@media (min-width: 992px) {
+  .conversion-wrapper {
+    margin: 3% auto;
+  }
+}
 
 /* extra large */
 @media (min-width: 1200px) {}
