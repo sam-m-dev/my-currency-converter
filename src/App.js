@@ -204,14 +204,14 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <div className="App row">
 
-      <header className="App-header">
+      <header className="App-header col-12 col-md-6">
         <h1>Currency Converter</h1>
       </header>
-      <div className="content-wrapper">
+      <div className="content-wrapper col-12 col-md-6">
 
-        <div className="conversion-wrapper">
+        <div className="conversion-wrapper ">
           <ConversionForm
             currenciesAll={allCurrencies}
             // currencyInput1={handleChange}
@@ -234,7 +234,7 @@ function App() {
         </div>
 
       </div>
-      <footer className="App-footer">
+      <footer className="App-footer col-12">
         <p>Made with React</p>
       </footer>
     </div>
@@ -264,7 +264,7 @@ function ConversionForm({
 }) {
   return (
     <section className="converter-section row">
-      <div className="form-wrapper col-12 col-sm-10 col-md-8 col-lg-7 col-xxl-6">
+      <div className="form-wrapper col-10 col-md-12">
         <form className="needs-validation">
           <DropdownButtons
             currenciesList={currenciesAll}
