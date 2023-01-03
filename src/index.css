@@ -95,8 +95,7 @@ label {
 #root,
 
 .converter-section,
-.conversion-wrapper,
-.button-wrapper {
+.conversion-wrapper {
   width: 100%;
 }
 
@@ -267,7 +266,23 @@ label,
   color: white;
 }
 
+.result-wrapper {
+  display: flex;
+  padding: 2% 5%;
+  justify-content: center;
+}
 
+.needs-validation {
+  align-items: center;
+}
+
+.dropdowns {
+  width: 100%;
+}
+
+.amount-submit-wrapper {
+  width: 100%
+}
 
 .App-header h1,
 .submit-btn,
@@ -286,7 +301,7 @@ label {
   display: flex;
   flex-direction: column;
   margin: 5% 0;
-  width: 100%;
+
 }
 
 .result {
@@ -330,6 +345,12 @@ input[type=text]:focus {
   outline: none !important;
   border: 2px solid #0b3866;
   box-shadow: 0 0 10px hsla(148, 89%, 78%, 1);
+}
+
+.result-section {
+
+  margin: 2%;
+  width: 100%;
 }
 
 /* textarea:focus {
@@ -390,15 +411,29 @@ input[type=text]:focus {
 
 /* small */
 @media (min-width: 576px) {
-  /* .App-header {
-    align-items: flex-start;
-    height: 100%;
-    background-position: center;
+  .App-header {
+    margin: 2%;
+    padding: 3%;
+
   }
 
-  .App-header h1 {
-    width: 100%
-  } */
+  .amount-submit-wrapper,
+  .dropdowns {
+    justify-content: center;
+  }
+
+  .result {
+    margin: 2%;
+    padding: 2%;
+    width: auto;
+    flex-direction: row;
+    justify-content: center
+  }
+
+  .result h1 {
+    margin-left: 2%;
+  }
+
 
 }
 

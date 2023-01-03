@@ -264,18 +264,21 @@ function ConversionForm({
 }) {
   return (
     <section className="converter-section row">
-      <div className="form-wrapper col-10 col-md-12">
+      <div className="form-wrapper col-10 col-sm-12 col-md-12">
         <form className="needs-validation">
           <DropdownButtons
             currenciesList={currenciesAll}
             selection1={currencyInput1}
             selection2={currencyInput2}
           ></DropdownButtons>
+
+          <div className="amount-submit-wrapper row">
           <AmountToConvert
             amount={amountInput}
             setAmount={amountSet}
           ></AmountToConvert>
           <SubmitBtn handleSubmit={submitConversion}></SubmitBtn>
+          </div>
         </form>
       </div>
     </section>
@@ -364,56 +367,44 @@ function DropdownButtons({ currenciesList, selection1, selection2 }) {
 
   console.log(options);
   return (
-    <div className="dropdowns">
-      <div className="select" id="select1">
-        <label>
-          From
-        
+    <div className="dropdowns row">
+
+      <div className="select-wrapper col-12 col-sm-5 col-md-12">
+        <div className="select" id="select1">
+          <label>
+            From
+            <Select className="basic-single"
+              classNamePrefix="select"
+              options={options}
+              placeholder={defaultCurrency}
+              onChange={selection1} />
+          </label>
+        </div>
+        <div className="errorMessage" id="alertOriginCurrency"></div>
+      </div>
+
+      <div className="select-wrapper col-12 col-sm-5 col-md-12">
+        <div className="select" id="select2">
+          <label>
+            To
           <Select className="basic-single"
             classNamePrefix="select"
+            isSearchable="true"
+            placeholder={placeholderValue}
             options={options}
-            placeholder={defaultCurrency}
-            onChange={selection1} />
-        </label>
+            onChange={selection2} />
+          </label>
+        </div>
+        <div className="errorMessage" id="alertDestinationCurrency"></div>
       </div>
 
- 
-      <div className="errorMessage" id="alertOriginCurrency"></div>
-   <div className="select" id="select2">
-      <label>
-        To
-     
-
-
-      <Select className="basic-single"
-        classNamePrefix="select"
-        isSearchable="true"
-        placeholder={placeholderValue}
-        options={options}
-        onChange={selection2} />
-      
-
-      {/* <select
-          className="slct-currency form-select form-select-lg mb-3"
-          id="currency2"
-          aria-label=".form-select-lg currency"
-          onChange={selection2}
-          required
-        >
-           {currencyItemsList} 
-        </select> */}
-      {/* <Select id="currency2" options={options} onChange={selection2} /> */}
-
-      </label>
-      </div>
-      <div className="errorMessage" id="alertDestinationCurrency"></div>
     </div>
-  )
+  ) 
 }
 
 function AmountToConvert({ setAmount, amount }) {
   return (
-    <div className="amount">
+    <div className="amount col-12 col-sm-10 col-md-12">
       <div className="select-amount">
         <label>
           Amount: 
@@ -436,7 +427,7 @@ function AmountToConvert({ setAmount, amount }) {
 
 function SubmitBtn({ handleSubmit }) {
   return (
-    <div className="button-wrapper">
+    <div className="button-wrapper col-12 col-sm-6 col-md-12">
       <button className="submit-btn" onClick={handleSubmit}>submit</button>
     </div>
   )
@@ -446,13 +437,15 @@ function Result({ amountConverted, convResult, convertedTo, convertedFrom }) {
   //console.log('test' + amountConverted)
   return (
 
-    <section className='result-section'>
+    <section className='result-section row'>
 
-      <div className="result">
+      <div className='result-wrapper col-10 col-sm-12 col-md-12'>
+      <div className="result col-12 col-sm-10">
         {/* <h1>result</h1> */}
         <h1>{amountConverted}{' '}{convertedFrom}</h1>
         <h1>=</h1>
         <h1>{' '}{convResult}{' '}{convertedTo}</h1>
+      </div>
       </div>
     </section>
   )
