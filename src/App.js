@@ -2,9 +2,10 @@ import './App.css'
 import { useEffect, useState } from 'react'
 import React from 'react'
 import Select from 'react-select'
+import ConversionForm from './components/ConversionForm';
 
 let currencyInfo;
-let currencyArray = new Array();
+// let currencyArray = new Array();
 let loading;
 
 
@@ -241,197 +242,197 @@ function App() {
   )
 }
 
-function addToArray(currencyToAddObject) {
+// function addToArray(currencyToAddObject) {
 
-  if (currencyArray.some(currency => currency.codeCurrency === currencyToAddObject.codeCurrency)) {
+//   if (currencyArray.some(currency => currency.codeCurrency === currencyToAddObject.codeCurrency)) {
 
-  } else {
-    // console.log(currencyToAddObject)
-    currencyArray.push(currencyToAddObject);
-  }
+//   } else {
+//     // console.log(currencyToAddObject)
+//     currencyArray.push(currencyToAddObject);
+//   }
 
-}
+// }
 
-function ConversionForm({
-  amountInput,
-  amountSet,
-  currenciesAll,
-  currencyInput2,
-  currencyInput1,
-  conversionResult,
-  setConversionResult,
-  submitConversion,
-}) {
-  return (
-    <section className="converter-section row">
-      <div className="form-wrapper col-10 col-sm-12 col-md-12">
-        <form className="needs-validation">
-          <DropdownButtons
-            currenciesList={currenciesAll}
-            selection1={currencyInput1}
-            selection2={currencyInput2}
-          ></DropdownButtons>
+// function ConversionForm({
+//   amountInput,
+//   amountSet,
+//   currenciesAll,
+//   currencyInput2,
+//   currencyInput1,
+//   conversionResult,
+//   setConversionResult,
+//   submitConversion,
+// }) {
+//   return (
+//     <section className="converter-section row">
+//       <div className="form-wrapper col-10 col-sm-12 col-md-12">
+//         <form className="needs-validation">
+//           <DropdownButtons
+//             currenciesList={currenciesAll}
+//             selection1={currencyInput1}
+//             selection2={currencyInput2}
+//           ></DropdownButtons>
 
-          <div className="amount-submit-wrapper row">
-          <AmountToConvert
-            amount={amountInput}
-            setAmount={amountSet}
-          ></AmountToConvert>
-          <SubmitBtn handleSubmit={submitConversion}></SubmitBtn>
-          </div>
-        </form>
-      </div>
-    </section>
-  )
-}
+//           <div className="amount-submit-wrapper row">
+//           <AmountToConvert
+//             amount={amountInput}
+//             setAmount={amountSet}
+//           ></AmountToConvert>
+//           <SubmitBtn handleSubmit={submitConversion}></SubmitBtn>
+//           </div>
+//         </form>
+//       </div>
+//     </section>
+//   )
+// }
 
-function DropdownButtons({ currenciesList, selection1, selection2 }) {
-  //console.log(currenciesList);
-  let svgFlag;
-  let pngFlag;
-  let code;
-  let codeName;
+// function DropdownButtons({ currenciesList, selection1, selection2 }) {
+//   //console.log(currenciesList);
+//   let svgFlag;
+//   let pngFlag;
+//   let code;
+//   let codeName;
  
-  for (let i = 0; i < currenciesList.length; i++) {
-    let currencyItem = currenciesList[i]
-    let currencyInfo = currencyItem.currencies
-    let currencyFlags = currencyItem.flags;
+//   for (let i = 0; i < currenciesList.length; i++) {
+//     let currencyItem = currenciesList[i]
+//     let currencyInfo = currencyItem.currencies
+//     let currencyFlags = currencyItem.flags;
 
-    if (currencyInfo !== undefined) {
+//     if (currencyInfo !== undefined) {
   
-      for(let i=0; i<currencyInfo.length; i++){
+//       for(let i=0; i<currencyInfo.length; i++){
 
-        code = currencyInfo[i]['code'];
-        codeName = currencyInfo[i]['name'];
-       // console.log(code)
-        switch (code) {
-          case "EUR":
-            svgFlag="https://flagcdn.com/eu.svg"
-            pngFlag = "https://flagcdn.com/w320/eu.png"
-             // console.log(svgFlag)
-            break;
-          case "USD":
-            svgFlag = "https://flagcdn.com/us.svg"
-            pngFlag = "https://flagcdn.com/w320/us.png"
-       //     console.log(svgFlag)
-            break;
-          case "GBP":
-            svgFlag = "https://flagcdn.com/gb.svg"
-            pngFlag = "https://flagcdn.com/w320/gb.png"
-            //     console.log(svgFlag)
-            break;
-          case "INR":
-            svgFlag = "https://flagcdn.com/in.svg"
-            pngFlag = "https://flagcdn.com/w320/in.png"
-            //     console.log(svgFlag)
-            break;
-          case "SGD":
-            svgFlag = "https://flagcdn.com/sg.svg"
-            pngFlag = "https://flagcdn.com/w320/sg.png"
-            //     console.log(svgFlag)
-            break;
-          default:
-            svgFlag=currencyFlags.svg
-            pngFlag=currencyFlags.png
-            console.log(code,svgFlag, pngFlag)
-        }
+//         code = currencyInfo[i]['code'];
+//         codeName = currencyInfo[i]['name'];
+//        // console.log(code)
+//         switch (code) {
+//           case "EUR":
+//             svgFlag="https://flagcdn.com/eu.svg"
+//             pngFlag = "https://flagcdn.com/w320/eu.png"
+//              // console.log(svgFlag)
+//             break;
+//           case "USD":
+//             svgFlag = "https://flagcdn.com/us.svg"
+//             pngFlag = "https://flagcdn.com/w320/us.png"
+//        //     console.log(svgFlag)
+//             break;
+//           case "GBP":
+//             svgFlag = "https://flagcdn.com/gb.svg"
+//             pngFlag = "https://flagcdn.com/w320/gb.png"
+//             //     console.log(svgFlag)
+//             break;
+//           case "INR":
+//             svgFlag = "https://flagcdn.com/in.svg"
+//             pngFlag = "https://flagcdn.com/w320/in.png"
+//             //     console.log(svgFlag)
+//             break;
+//           case "SGD":
+//             svgFlag = "https://flagcdn.com/sg.svg"
+//             pngFlag = "https://flagcdn.com/w320/sg.png"
+//             //     console.log(svgFlag)
+//             break;
+//           default:
+//             svgFlag=currencyFlags.svg
+//             pngFlag=currencyFlags.png
+//             console.log(code,svgFlag, pngFlag)
+//         }
 
 
-        let currencyObject = {
-        codeCurrency: code,
-        name: codeName,
-        flagSVG: svgFlag,
-        flagPNG: pngFlag
-        }
+//         let currencyObject = {
+//         codeCurrency: code,
+//         name: codeName,
+//         flagSVG: svgFlag,
+//         flagPNG: pngFlag
+//         }
 
-        addToArray(currencyObject)
+//         addToArray(currencyObject)
   
 
-      }
+//       }
 
-    }
+//     }
 
-  }
-
-
-
-  let defaultCurrency = "Currency";
-  let placeholderValue = "Currency"
-
-  const options = currencyArray.map((currencyCode) => ({
-    "value": currencyCode.codeCurrency,
-    "label": <div className="currency-item"><div className="flag-wrapper"><img className="flag-icon rounded-circle" src={currencyCode.flagSVG} /></div> <span className="currency-name">{currencyCode.codeCurrency} - {currencyCode.name}</span></div>
-  }))
+//   }
 
 
 
-  console.log(options);
-  return (
-    <div className="dropdowns row">
+//   let defaultCurrency = "Currency";
+//   let placeholderValue = "Currency"
 
-      <div className="select-wrapper col-12 col-sm-5 col-md-12">
-        <div className="select" id="select1">
-          <label>
-            From
-            <Select className="basic-single"
-              classNamePrefix="select"
-              options={options}
-              placeholder={defaultCurrency}
-              onChange={selection1} />
-          </label>
-        </div>
-        <div className="errorMessage" id="alertOriginCurrency"></div>
-      </div>
+//   const options = currencyArray.map((currencyCode) => ({
+//     "value": currencyCode.codeCurrency,
+//     "label": <div className="currency-item"><div className="flag-wrapper"><img className="flag-icon rounded-circle" src={currencyCode.flagSVG} /></div> <span className="currency-name">{currencyCode.codeCurrency} - {currencyCode.name}</span></div>
+//   }))
 
-      <div className="select-wrapper col-12 col-sm-5 col-md-12">
-        <div className="select" id="select2">
-          <label>
-            To
-          <Select className="basic-single"
-            classNamePrefix="select"
-            isSearchable="true"
-            placeholder={placeholderValue}
-            options={options}
-            onChange={selection2} />
-          </label>
-        </div>
-        <div className="errorMessage" id="alertDestinationCurrency"></div>
-      </div>
 
-    </div>
-  ) 
-}
 
-function AmountToConvert({ setAmount, amount }) {
-  return (
-    <div className="amount col-12 col-sm-10 col-md-12">
-      <div className="select-amount">
-        <label>
-          Amount: 
-          <div className='amount-single'>
-          <input
-            className="amount-input"
-            type="number"
-            name="amount"
-            value={amount}
-            onChange={setAmount}
-            required
-          />
-          </div>
-        </label>
-      </div>
-      <div className="errorMessage" id="alertMessageAmount"></div>
-    </div>
-  )
-}
+//   console.log(options);
+//   return (
+//     <div className="dropdowns row">
 
-function SubmitBtn({ handleSubmit }) {
-  return (
-    <div className="button-wrapper col-12 col-sm-6 col-md-12">
-      <button className="submit-btn" onClick={handleSubmit}>submit</button>
-    </div>
-  )
-}
+//       <div className="select-wrapper col-12 col-sm-5 col-md-12">
+//         <div className="select" id="select1">
+//           <label>
+//             From
+//             <Select className="basic-single"
+//               classNamePrefix="select"
+//               options={options}
+//               placeholder={defaultCurrency}
+//               onChange={selection1} />
+//           </label>
+//         </div>
+//         <div className="errorMessage" id="alertOriginCurrency"></div>
+//       </div>
+
+//       <div className="select-wrapper col-12 col-sm-5 col-md-12">
+//         <div className="select" id="select2">
+//           <label>
+//             To
+//           <Select className="basic-single"
+//             classNamePrefix="select"
+//             isSearchable="true"
+//             placeholder={placeholderValue}
+//             options={options}
+//             onChange={selection2} />
+//           </label>
+//         </div>
+//         <div className="errorMessage" id="alertDestinationCurrency"></div>
+//       </div>
+
+//     </div>
+//   ) 
+// }
+
+// function AmountToConvert({ setAmount, amount }) {
+//   return (
+//     <div className="amount col-12 col-sm-10 col-md-12">
+//       <div className="select-amount">
+//         <label>
+//           Amount: 
+//           <div className='amount-single'>
+//           <input
+//             className="amount-input"
+//             type="number"
+//             name="amount"
+//             value={amount}
+//             onChange={setAmount}
+//             required
+//           />
+//           </div>
+//         </label>
+//       </div>
+//       <div className="errorMessage" id="alertMessageAmount"></div>
+//     </div>
+//   )
+// }
+
+// function SubmitBtn({ handleSubmit }) {
+//   return (
+//     <div className="button-wrapper col-12 col-sm-6 col-md-12">
+//       <button className="submit-btn" onClick={handleSubmit}>submit</button>
+//     </div>
+//   )
+// }
 
 function Result({ amountConverted, convResult, convertedTo, convertedFrom }) {
   //console.log('test' + amountConverted)
