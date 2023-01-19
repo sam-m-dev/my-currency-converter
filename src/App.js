@@ -1,18 +1,20 @@
 import './App.css'
 import { useEffect, useState } from 'react'
 import React from 'react'
-import Select from 'react-select'
 import ConversionForm from './components/ConversionForm';
 import DisplayConversion from './components/DisplayConversion';
-import img from './assets/exchange.svg'
+import PageHeader from './components/PageHeader';
 
-let currencyInfo;
-// let currencyArray = new Array();
+const appWrapperStyle={
+  minHeight: '100vh',
+display: 'flex',
+flexDirection: 'column',
+justifyContent: 'space-between'
+}
+
 let loading;
 
-
 function App() {
-
 
   const [allCurrencies, setAllCurrencies] = useState([]);
   const [amountToConvert, setAmountToConvert] = useState(0);
@@ -206,23 +208,12 @@ function App() {
 
   }
 
-  return (
-    <div className="App-wrapper">
-<div className="header-content-wrapper">
-      <header className="App-header"> 
-        <div className="App-header-wrapper row"> 
-          <div className="App-title col-8 col-sm-9 col-md-12">
-            <h1>Currency Converter</h1> 
-          </div>
+  return ( 
+    <div className="App-wrapper" style={appWrapperStyle}>
+        <div className="header-content-wrapper">
 
-          <div className="App-image col-4 col-sm-3 col-md-12">
-            <img src={img} alt="decorative illustration"/>
-          </div>
-        </div>
-      </header>
-      {/* <div className="content-wrapper col-12 col-md-6"> */}
+          <PageHeader/>
 
-        {/* <div className="conversion-wrapper "> */}
           <ConversionForm
             currenciesAll={allCurrencies}
             // currencyInput1={handleChange}
@@ -234,6 +225,7 @@ function App() {
             setConversionResult={setResultConversion}
             submitConversion={handleSubmit}
           ></ConversionForm>
+      </div>
           <DisplayConversion
             isConverted={isConversionDone}
             loadingStatus={isConversionLoading}
@@ -242,10 +234,9 @@ function App() {
             convertedFrom={currencyValue1}
             convertedTo={currencyValue2}
           ></DisplayConversion>
-      {/* </div> */}
-        {/* </div> */}
 
-      </div>
+        
+
       <footer className="App-footer col-12">
         <p>Made with React</p>
       </footer>

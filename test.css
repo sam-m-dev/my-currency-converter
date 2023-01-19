@@ -5,7 +5,7 @@
 .App-wrapper {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  height: auto;
 
 }
 
@@ -20,19 +20,14 @@
   margin: auto;
 }
 
-.select__input-container,
-.select__single-value {
-  min-height: 40px;
-  Height: 40px;
-}
-
-.form-container,
 .App-image img {
   width: 100%
 }
 
 .App-header {
 
+  margin: 2% 0;
+  padding: 3% 0;
   border-radius: 5px;
 }
 
@@ -148,7 +143,7 @@ form {
 .App,
 #root,
 
-
+.converter-section,
 .conversion-wrapper {
   width: 100%;
 }
@@ -266,9 +261,6 @@ form {
 
 .currency-item {
   display: flex;
-  display: flex;
-  height: 100%;
-  align-items: center;
 
 }
 
@@ -381,7 +373,7 @@ label {
   flex-wrap: wrap;
   flex-direction: column;
   border-radius: 4px;
-  width: 100%;
+  width: 90%;
   padding: 5%;
   align-items: center;
   background-color: #0b3866;
@@ -507,7 +499,7 @@ input[type=text]:focus {
   .result {
     margin: 2%;
     padding: 2%;
-    
+    width: auto;
     flex-direction: row;
     justify-content: center
   }
@@ -521,6 +513,9 @@ input[type=text]:focus {
     display: flex;
   }
 
+  .App-image img {
+    border-right: 1px solid blue;
+  }
 
   .form-wrapper {
     padding: 2%;
@@ -540,25 +535,9 @@ input[type=text]:focus {
   }
 
   .header-content-wrapper {
-
-    flex-direction: row;
+    
+    flex-direction:row;
     padding: 5%;
-  }
-
-  .App-header-wrapper {
-    flex-direction: column;
-    display: flex;
-    justify-content: space-evenly;
-    height: 100%;
-  }
-
-
-  .App-title h1 {
-    font-size: 2em;
-  }
-
-  .converter-section {
-    height: auto
   }
 
 }
@@ -574,6 +553,7 @@ input[type=text]:focus {
   .App-header {
     align-items: center;
     height: auto;
+    width: 45%;
   }
 
   .App-header h1 {
@@ -582,8 +562,6 @@ input[type=text]:focus {
     align-items: center;
     font-size: 3em;
   }
-
-
 }
 
 /* extra large */

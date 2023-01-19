@@ -14,7 +14,7 @@ function ConversionForm({
     submitConversion,
 }) {
     return (
-        <section className="converter-section row">
+        <section className="converter-section col-12 col-md-6">
             <div className="form-container">
                 <div className="form-wrapper col-12 col-sm-11 col-md-10">
                     <form className="needs-validation">
