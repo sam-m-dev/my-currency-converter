@@ -36,6 +36,12 @@
   padding: 2%;
 }
 
+.header-content-wrapper {
+  display: flex;
+  flex-direction:column;
+  padding: 5%;
+}
+
 .converter-section {
 
 
