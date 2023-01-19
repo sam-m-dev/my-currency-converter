@@ -1,6 +1,6 @@
 function AmountToConvert({ setAmount, amount }) {
     return (
-        <div className="amount col-12 col-sm-10 col-md-12">
+        <div className="amount col-12 col-sm-12 col-md-12">
             <div className="select-amount">
                 <label>
                     Amount:

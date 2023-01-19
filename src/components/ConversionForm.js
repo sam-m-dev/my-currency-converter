@@ -15,22 +15,26 @@ function ConversionForm({
 }) {
     return (
         <section className="converter-section row">
-            <div className="form-wrapper col-10 col-sm-12 col-md-12">
-                <form className="needs-validation">
-                    <DropdownButtons
-                        currenciesList={currenciesAll}
-                        selection1={currencyInput1}
-                        selection2={currencyInput2}
-                    ></DropdownButtons>
+            <div className="form-container">
+                <div className="form-wrapper col-12 col-sm-11 col-md-10">
+                    <form className="needs-validation">
+                        <DropdownButtons
+                            currenciesList={currenciesAll}
+                            selection1={currencyInput1}
+                            selection2={currencyInput2}
+                        ></DropdownButtons>
 
-                    <div className="amount-submit-wrapper row">
-                        <AmountToConvert
-                            amount={amountInput}
-                            setAmount={amountSet}
-                        ></AmountToConvert>
-                        <SubmitBtn handleSubmit={submitConversion}></SubmitBtn> 
-                    </div> 
-                </form>
+                        <div className="amount-wrapper row">
+                            <AmountToConvert
+                                amount={amountInput}
+                                setAmount={amountSet}
+                            ></AmountToConvert>
+                        </div> 
+                        <div className="submit-wrapper">
+                            <SubmitBtn handleSubmit={submitConversion}></SubmitBtn> 
+                        </div>
+                    </form>
+                </div>
             </div>
         </section>
     )

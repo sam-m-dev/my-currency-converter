@@ -2,18 +2,63 @@
   min-height: 100vh;
 }
 
-.App-header {
-  background-image: url('assets/exchange.svg');
-  background-size: contain;
-  background-position: right;
-  max-height: 10%;
-  background-repeat: no-repeat;
+.App-wrapper {
   display: flex;
-  margin: 3% 0;
-  justify-content: center;
-  align-items: start;
+  flex-direction: column;
+  height: auto;
+
 }
 
+.App-title {
+  display: flex;
+  flex-direction: column;
+  padding: 2%;
+  justify-content: center;
+}
+
+.App-title h1 {
+  margin: auto;
+}
+
+.App-image img {
+  width: 100%
+}
+
+.App-header {
+
+  margin: 2% 0;
+  padding: 3% 0;
+  border-radius: 5px;
+}
+
+.App-header-wrapper {
+  margin: 0px;
+  padding: 2%;
+}
+
+.converter-section {
+
+
+  margin: 0px;
+  padding: 0px;
+}
+
+.form-container {
+  border: 1px solid #F4D35E;
+  border-radius: 15px;
+  background: hsla(213, 77%, 14%, 1);
+  background: linear-gradient(90deg, hsla(213, 77%, 14%, 1) 0%, hsla(202, 27%, 45%, 1) 100%);
+  background: -moz-linear-gradient(90deg, hsla(213, 77%, 14%, 1) 0%, hsla(202, 27%, 45%, 1) 100%);
+  background: -webkit-linear-gradient(90deg, hsla(213, 77%, 14%, 1) 0%, hsla(202, 27%, 45%, 1) 100%);
+  filter: progid: DXImageTransform.Microsoft.gradient(startColorstr="#08203E", endColorstr="#557C93", GradientType=1);
+  display: flex;
+  justify-content: center;
+}
+
+
+.converter-section {
+  height: 100%;
+}
 
 .select__control,
 .css-13cymwt-control .select__control--is-focused,
@@ -31,7 +76,8 @@
   padding: 2%;
 }
 
-.select-amount {
+.select-amount label {
+  color: #F4D35E !important;
   /* padding: 5%; */
 }
 
@@ -47,6 +93,9 @@ label {
   flex-direction: column;
 }
 
+form {
+  padding: 5% 0;
+}
 
 .App-header,
 .content-wrapper,
@@ -80,7 +129,7 @@ label {
 /* .App-header h1, */
 
 .form-wrapper {
-  padding: 2% 5%
+  padding: 5%
 }
 
 #root,
@@ -97,6 +146,11 @@ label {
 .converter-section,
 .conversion-wrapper {
   width: 100%;
+}
+
+.converter-section {
+  padding: 0px;
+  justify-content: center;
 }
 
 .button-wrapper {
@@ -120,7 +174,8 @@ label {
   margin: 3% auto;
 }
 
-.App,
+.App {}
+
 .content-wrapper {
   align-items: center;
 }
@@ -136,15 +191,19 @@ label {
 
 .App-header {
   align-items: center;
-  /* background-color: #0b3866; */
-  padding: 5%;
+  /* background-color: #0b3866;
+  padding: 3%; */
 }
 
 .App-header h1 {
   padding: 5%;
-  font-size: 2em;
+  font-size: 1.3em;
   justify-content: center;
   color: #0b3866;
+}
+
+.submit-wrapper {
+  width: 100%;
 }
 
 .amount-input {
@@ -217,14 +276,19 @@ label {
   padding: 5%;
 }
 
+.amount-wrapper {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
 /* Colors */
-.submit-btn,
+
 .css-1u9des2-indicatorSeparator {
   background-color: #0b3866 !important;
 }
 
-
-.amount-input,
+.submit-btn .amount-input,
 .App-footer p,
 .css-1jqq78o-placeholder,
 .css-1xc3v61-indicatorContainer {
@@ -233,7 +297,7 @@ label {
 }
 
 
-.submit-btn,
+
 .App-header {
   color: white;
 }
@@ -411,16 +475,26 @@ input[type=text]:focus {
 
 /* small */
 @media (min-width: 576px) {
-  .App-header {
-    margin: 2%;
-    padding: 3%;
+  .form-container {
+    /* margin: 2%;*/
+    padding: 5% 0;
+    width: 90%;
+  }
 
+  .App-title {
+    justify-content: flex-start;
+  }
+
+  .App-header h1 {
+    font-size: 3em;
   }
 
   .amount-submit-wrapper,
   .dropdowns {
     justify-content: center;
   }
+
+
 
   .result {
     margin: 2%;
@@ -434,6 +508,19 @@ input[type=text]:focus {
     margin-left: 2%;
   }
 
+  .App-image {
+    padding: 2%;
+    display: flex;
+  }
+
+  .App-image img {
+    border-right: 1px solid blue;
+  }
+
+  .form-wrapper {
+    padding: 2%;
+  }
+
 
 }
 
@@ -445,7 +532,7 @@ input[type=text]:focus {
 
   .App-header {
     align-items: flex-start;
-    height: 100%;
+    height: auto;
     background-position: 0% 80%;
   }
 
@@ -462,6 +549,24 @@ input[type=text]:focus {
 @media (min-width: 992px) {
   .conversion-wrapper {
     margin: 3% auto;
+  }
+
+  .header-content-wrapper {
+    display: flex;
+    padding: 5%;
+  }
+
+  .App-header {
+    align-items: center;
+    height: auto;
+    width: 45%;
+  }
+
+  .App-header h1 {
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    font-size: 3em;
   }
 }
 

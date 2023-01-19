@@ -50,7 +50,7 @@ function DropdownButtons({ currenciesList, selection1, selection2 }) {
                     default:
                         svgFlag = currencyFlags.svg
                         pngFlag = currencyFlags.png
-                        console.log(code, svgFlag, pngFlag)
+                      //  console.log(code, svgFlag, pngFlag)
                 }
 
 
@@ -86,7 +86,7 @@ function DropdownButtons({ currenciesList, selection1, selection2 }) {
     return (
         <div className="dropdowns row">
 
-            <div className="select-wrapper col-12 col-sm-5 col-md-12">
+            <div className="select-wrapper col-12 col-sm-6 col-md-12">
                 <div className="select" id="select1">
                     <label>
                         From
@@ -100,7 +100,7 @@ function DropdownButtons({ currenciesList, selection1, selection2 }) {
                 <div className="errorMessage" id="alertOriginCurrency"></div>
             </div>
 
-            <div className="select-wrapper col-12 col-sm-5 col-md-12">
+            <div className="select-wrapper col-12 col-sm-6 col-md-12">
                 <div className="select" id="select2">
                     <label>
                         To

@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react'
 import React from 'react'
 import Select from 'react-select'
 import ConversionForm from './components/ConversionForm';
+import DisplayConversion from './components/DisplayConversion';
+import img from './assets/exchange.svg'
 
 let currencyInfo;
 // let currencyArray = new Array();
@@ -205,14 +207,22 @@ function App() {
   }
 
   return (
-    <div className="App row">
+    <div className="App-wrapper">
+<div className="header-content-wrapper">
+      <header className="App-header"> 
+        <div className="App-header-wrapper row"> 
+          <div className="App-title col-8 col-sm-9 col-md-12">
+            <h1>Currency Converter</h1> 
+          </div>
 
-      <header className="App-header col-12 col-md-6">
-        <h1>Currency Converter</h1>
+          <div className="App-image col-4 col-sm-3 col-md-12">
+            <img src={img} alt="decorative illustration"/>
+          </div>
+        </div>
       </header>
-      <div className="content-wrapper col-12 col-md-6">
+      {/* <div className="content-wrapper col-12 col-md-6"> */}
 
-        <div className="conversion-wrapper ">
+        {/* <div className="conversion-wrapper "> */}
           <ConversionForm
             currenciesAll={allCurrencies}
             // currencyInput1={handleChange}
@@ -232,7 +242,8 @@ function App() {
             convertedFrom={currencyValue1}
             convertedTo={currencyValue2}
           ></DisplayConversion>
-        </div>
+      {/* </div> */}
+        {/* </div> */}
 
       </div>
       <footer className="App-footer col-12">
@@ -242,256 +253,6 @@ function App() {
   )
 }
 
-// function addToArray(currencyToAddObject) {
-
-//   if (currencyArray.some(currency => currency.codeCurrency === currencyToAddObject.codeCurrency)) {
-
-//   } else {
-//     // console.log(currencyToAddObject)
-//     currencyArray.push(currencyToAddObject);
-//   }
-
-// }
-
-// function ConversionForm({
-//   amountInput,
-//   amountSet,
-//   currenciesAll,
-//   currencyInput2,
-//   currencyInput1,
-//   conversionResult,
-//   setConversionResult,
-//   submitConversion,
-// }) {
-//   return (
-//     <section className="converter-section row">
-//       <div className="form-wrapper col-10 col-sm-12 col-md-12">
-//         <form className="needs-validation">
-//           <DropdownButtons
-//             currenciesList={currenciesAll}
-//             selection1={currencyInput1}
-//             selection2={currencyInput2}
-//           ></DropdownButtons>
-
-//           <div className="amount-submit-wrapper row">
-//           <AmountToConvert
-//             amount={amountInput}
-//             setAmount={amountSet}
-//           ></AmountToConvert>
-//           <SubmitBtn handleSubmit={submitConversion}></SubmitBtn>
-//           </div>
-//         </form>
-//       </div>
-//     </section>
-//   )
-// }
-
-// function DropdownButtons({ currenciesList, selection1, selection2 }) {
-//   //console.log(currenciesList);
-//   let svgFlag;
-//   let pngFlag;
-//   let code;
-//   let codeName;
- 
-//   for (let i = 0; i < currenciesList.length; i++) {
-//     let currencyItem = currenciesList[i]
-//     let currencyInfo = currencyItem.currencies
-//     let currencyFlags = currencyItem.flags;
-
-//     if (currencyInfo !== undefined) {
-  
-//       for(let i=0; i<currencyInfo.length; i++){
-
-//         code = currencyInfo[i]['code'];
-//         codeName = currencyInfo[i]['name'];
-//        // console.log(code)
-//         switch (code) {
-//           case "EUR":
-//             svgFlag="https://flagcdn.com/eu.svg"
-//             pngFlag = "https://flagcdn.com/w320/eu.png"
-//              // console.log(svgFlag)
-//             break;
-//           case "USD":
-//             svgFlag = "https://flagcdn.com/us.svg"
-//             pngFlag = "https://flagcdn.com/w320/us.png"
-//        //     console.log(svgFlag)
-//             break;
-//           case "GBP":
-//             svgFlag = "https://flagcdn.com/gb.svg"
-//             pngFlag = "https://flagcdn.com/w320/gb.png"
-//             //     console.log(svgFlag)
-//             break;
-//           case "INR":
-//             svgFlag = "https://flagcdn.com/in.svg"
-//             pngFlag = "https://flagcdn.com/w320/in.png"
-//             //     console.log(svgFlag)
-//             break;
-//           case "SGD":
-//             svgFlag = "https://flagcdn.com/sg.svg"
-//             pngFlag = "https://flagcdn.com/w320/sg.png"
-//             //     console.log(svgFlag)
-//             break;
-//           default:
-//             svgFlag=currencyFlags.svg
-//             pngFlag=currencyFlags.png
-//             console.log(code,svgFlag, pngFlag)
-//         }
-
-
-//         let currencyObject = {
-//         codeCurrency: code,
-//         name: codeName,
-//         flagSVG: svgFlag,
-//         flagPNG: pngFlag
-//         }
-
-//         addToArray(currencyObject)
-  
-
-//       }
-
-//     }
-
-//   }
-
-
-
-//   let defaultCurrency = "Currency";
-//   let placeholderValue = "Currency"
-
-//   const options = currencyArray.map((currencyCode) => ({
-//     "value": currencyCode.codeCurrency,
-//     "label": <div className="currency-item"><div className="flag-wrapper"><img className="flag-icon rounded-circle" src={currencyCode.flagSVG} /></div> <span className="currency-name">{currencyCode.codeCurrency} - {currencyCode.name}</span></div>
-//   }))
-
-
-
-//   console.log(options);
-//   return (
-//     <div className="dropdowns row">
-
-//       <div className="select-wrapper col-12 col-sm-5 col-md-12">
-//         <div className="select" id="select1">
-//           <label>
-//             From
-//             <Select className="basic-single"
-//               classNamePrefix="select"
-//               options={options}
-//               placeholder={defaultCurrency}
-//               onChange={selection1} />
-//           </label>
-//         </div>
-//         <div className="errorMessage" id="alertOriginCurrency"></div>
-//       </div>
-
-//       <div className="select-wrapper col-12 col-sm-5 col-md-12">
-//         <div className="select" id="select2">
-//           <label>
-//             To
-//           <Select className="basic-single"
-//             classNamePrefix="select"
-//             isSearchable="true"
-//             placeholder={placeholderValue}
-//             options={options}
-//             onChange={selection2} />
-//           </label>
-//         </div>
-//         <div className="errorMessage" id="alertDestinationCurrency"></div>
-//       </div>
-
-//     </div>
-//   ) 
-// }
-
-// function AmountToConvert({ setAmount, amount }) {
-//   return (
-//     <div className="amount col-12 col-sm-10 col-md-12">
-//       <div className="select-amount">
-//         <label>
-//           Amount: 
-//           <div className='amount-single'>
-//           <input
-//             className="amount-input"
-//             type="number"
-//             name="amount"
-//             value={amount}
-//             onChange={setAmount}
-//             required
-//           />
-//           </div>
-//         </label>
-//       </div>
-//       <div className="errorMessage" id="alertMessageAmount"></div>
-//     </div>
-//   )
-// }
-
-// function SubmitBtn({ handleSubmit }) {
-//   return (
-//     <div className="button-wrapper col-12 col-sm-6 col-md-12">
-//       <button className="submit-btn" onClick={handleSubmit}>submit</button>
-//     </div>
-//   )
-// }
-
-function Result({ amountConverted, convResult, convertedTo, convertedFrom }) {
-  //console.log('test' + amountConverted)
-  return (
-
-    <section className='result-section row'>
-
-      <div className='result-wrapper col-10 col-sm-12 col-md-12'>
-      <div className="result col-12 col-sm-10">
-        {/* <h1>result</h1> */}
-        <h1>{amountConverted}{' '}{convertedFrom}</h1>
-        <h1>=</h1>
-        <h1>{' '}{convResult}{' '}{convertedTo}</h1>
-      </div>
-      </div>
-    </section>
-  )
-}
-
-function LoadingConversion() {
-
-  return (
-    <div className="loading-container">
-      <div className="spinner-grow text-info" role="status">
-        <span className="visually-hidden">Loading...</span>
-      </div>
-    </div>
-  )
-
-}
-
-function DisplayConversion({
-  isConverted,
-  amountConverted,
-  convResult,
-  convertedTo,
-  convertedFrom,
-  loadingStatus
-}) {
-
-  console.log(loadingStatus)
-  if ((loadingStatus !== false) && (isConverted === false)) {
-    return (
-      <LoadingConversion></LoadingConversion>
-    )
-    // 
-
-  } else if ((isConverted === true) && (loadingStatus === false)) {
-    return (
-     
-      <Result
-        amountConverted={amountConverted}
-        convResult={convResult}
-        convertedFrom={convertedFrom}
-        convertedTo={convertedTo}
-      ></Result>
-    )
-  }
-
-}
 
 export default App
+ 
