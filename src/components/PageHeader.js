@@ -23,7 +23,7 @@ const imageDimensions={
 
 function PageHeader(){
 return(
-    <header className="App-header col-12 col-sm-12 col-md-6">
+    <header className="App-header col-12 col-sm-12 col-md-5">
             <div className="App-header-wrapper col-12" style={headerContainerStyle}>
             <div className="App-title col-10 col-sm-10 col-md-12" style={headerTitle}>
                 <h1>Currency Converter</h1>
